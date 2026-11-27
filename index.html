@@ -2,19 +2,25 @@
 <html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ardi & Ramlah">
+  <meta name="theme-color" content="#0c0a09">
   <title>The Wedding of Ardi & Ramlah | Undangan Pernikahan</title>
   
   <!-- Meta Tags for SEO & Social Sharing -->
-  <meta name="description" content="Pernikahan Ardi & Ramlah - Sabtu, 12 September 2026. Merupakan suatu kehormatan dan kebahagiaan bagi kami atas kehadiran dan doa restu Anda.">
+  <meta name="description" content="Pernikahan Ardi & Ramlah - Jum'at, 11 Desember 2026. Merupakan suatu kehormatan dan kebahagiaan bagi kami atas kehadiran dan doa restu Anda.">
   <meta property="og:title" content="The Wedding of Ardi & Ramlah">
-  <meta property="og:description" content="Undangan Pernikahan Romantis Ardi & Ramlah - 12 September 2026">
+  <meta property="og:description" content="Undangan Pernikahan Romantis Ardi & Ramlah - 11 Desember 2026">
   <meta property="og:image" content="cover1.jpg">
   
-  <!-- Google Fonts -->
+  <!-- Google Fonts & Custom Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/brittany-signature" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -30,6 +36,7 @@
             cormorant: ['"Cormorant Garamond"', 'serif'],
             script: ['"Great Vibes"', 'cursive'],
             brush: ['"Alex Brush"', 'cursive'],
+            brittany: ['"Brittany Signature"', '"Great Vibes"', 'cursive'],
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
             arabic: ['"Amiri"', 'serif']
           },
@@ -51,7 +58,7 @@
           keyframes: {
             floatSlow: {
               '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-              '50%': { transform: 'translateY(-10px) rotate(2deg)' },
+              '50%': { transform: 'translateY(5px) rotate(1deg)' },
             },
             pulseSubtle: {
               '0%, 100%': { opacity: '1', transform: 'scale(1)' },
@@ -73,12 +80,45 @@
   </script>
 
   <style>
+    /* Brittany Signature Custom Font Definition */
+    @font-face {
+      font-family: 'Brittany Signature';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local('Brittany Signature'), url('https://fonts.cdnfonts.com/s/39082/BrittanySignature-LjyZ.woff') format('woff');
+    }
+    .font-brittany {
+      font-family: 'Brittany Signature', 'Great Vibes', cursive;
+      display: inline-block;
+      overflow: visible;
+      line-height: 1.35;
+      padding-top: 0.35em;
+      padding-bottom: 0.25em;
+    }
+
+    /* Mobile-first Safe Area & 100dvh root variables */
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
+
+    html, body {
+      min-height: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
+    }
+
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 5px;
+      width: 4px;
     }
     ::-webkit-scrollbar-track {
-      background: #1a1512;
+      background: #120e0b;
     }
     ::-webkit-scrollbar-thumb {
       background: #c5a046;
@@ -93,7 +133,7 @@
       border: 1px solid rgba(255, 255, 255, 0.22);
     }
     .glass-dark {
-      background: rgba(18, 14, 12, 0.65);
+      background: rgba(18, 14, 12, 0.72);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(219, 186, 99, 0.25);
@@ -127,255 +167,576 @@
       animation: spinDisc 8s linear infinite;
     }
 
-    /* Petal Canvas */
+    /* Scroll-triggered Smooth Zoom In Entrance (Dari kecil ke besar) */
+    .zoom-in-reveal {
+      opacity: 0;
+      transform: scale(0.65);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease-out;
+      will-change: transform, opacity;
+    }
+    .zoom-in-reveal.zoom-in-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Petal Canvas (Overlay inside device or viewport) */
     #petal-canvas {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 40;
+      z-index: 35;
+    }
+
+    /* ========================================================
+       DEVICE CHASSIS & SMARTPHONE MOCKUP STYLING
+       ======================================================== */
+    #phone-chassis {
+      width: 100%;
+      min-height: 100dvh;
+      margin: 0 auto;
+      position: relative;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #phone-screen {
+      width: 100%;
+      min-height: 100dvh;
+      background-color: #0c0a09;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #app-scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    /* Safe Area Helpers for Bottom Nav & Music Widget */
+    .safe-bottom-nav {
+      padding-bottom: max(0.6rem, calc(0.5rem + env(safe-area-inset-bottom, 0px)));
+    }
+    .safe-bottom-music {
+      bottom: max(5.2rem, calc(4.75rem + env(safe-area-inset-bottom, 0px)));
+    }
+
+    /* ----------------------------------------------------
+       DESKTOP & TABLET VIEW (>= 768px):
+       Displays Authentic iPhone or Android Mockup Frame
+       ---------------------------------------------------- */
+    @media (min-width: 768px) {
+      #desktop-wrapper {
+        padding-top: 5.25rem;
+        padding-bottom: 3.5rem;
+      }
+
+      /* iPhone 16 Pro Luxury Titanium Chassis */
+      #phone-chassis.mode-iphone {
+        width: 414px;
+        height: 864px;
+        border-radius: 54px;
+        background: #23201d;
+        padding: 11px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 
+          0 0 0 2px #12100e,
+          0 25px 65px -15px rgba(0, 0, 0, 0.95),
+          0 0 50px rgba(219, 186, 99, 0.18);
+      }
+
+      #phone-chassis.mode-iphone #phone-screen {
+        border-radius: 44px;
+        height: 100%;
+        transform: translateZ(0); /* Crucial: establishes containing block for fixed position inside phone */
+      }
+
+      /* iPhone Dynamic Island */
+      #phone-chassis.mode-iphone #device-cutout {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 118px;
+        height: 30px;
+        background: #000;
+        border-radius: 20px;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0 10px;
+        z-index: 60;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.85);
+        transition: width 0.3s ease, padding 0.3s ease;
+      }
+      #phone-chassis.mode-iphone #device-cutout.playing-music {
+        width: 156px;
+      }
+      #phone-chassis.mode-iphone .island-camera {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #102040 30%, #030712 100%);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      #phone-chassis.mode-iphone .island-sensor {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #080808;
+      }
+      #phone-chassis.mode-iphone #home-indicator {
+        display: block;
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 135px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        z-index: 60;
+        pointer-events: none;
+      }
+
+      /* iPhone Hardware Buttons */
+      #phone-chassis.mode-iphone .hw-btn {
+        position: absolute;
+        background: #2b2724;
+        border-radius: 3px;
+        display: block;
+      }
+      #phone-chassis.mode-iphone .hw-action { left: -14px; top: 120px; width: 4px; height: 26px; }
+      #phone-chassis.mode-iphone .hw-vol-up { left: -14px; top: 160px; width: 4px; height: 52px; }
+      #phone-chassis.mode-iphone .hw-vol-down { left: -14px; top: 224px; width: 4px; height: 52px; }
+      #phone-chassis.mode-iphone .hw-power { right: -14px; top: 175px; width: 4px; height: 80px; }
+
+
+      /* Android Samsung Galaxy S24 Ultra Chassis */
+      #phone-chassis.mode-android {
+        width: 412px;
+        height: 870px;
+        border-radius: 36px;
+        background: #18181b;
+        padding: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 
+          0 0 0 2px #09090b,
+          0 25px 65px -15px rgba(0, 0, 0, 0.95),
+          0 0 45px rgba(56, 189, 248, 0.16);
+      }
+
+      #phone-chassis.mode-android #phone-screen {
+        border-radius: 28px;
+        height: 100%;
+        transform: translateZ(0);
+      }
+
+      /* Android Punch Hole Camera */
+      #phone-chassis.mode-android #device-cutout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 13px;
+        height: 13px;
+        background: #000;
+        border-radius: 50%;
+        position: absolute;
+        top: 13px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 60;
+        border: 1.5px solid #27272a;
+        padding: 0;
+      }
+      #phone-chassis.mode-android .island-sensor { display: none; }
+      #phone-chassis.mode-android .island-camera {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #1e293b 30%, #020617 100%);
+      }
+      #phone-chassis.mode-android #home-indicator {
+        display: block;
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 8px;
+        z-index: 60;
+        pointer-events: none;
+      }
+
+      /* Android Hardware Buttons */
+      #phone-chassis.mode-android .hw-btn {
+        position: absolute;
+        background: #27272a;
+        border-radius: 2px;
+        display: block;
+      }
+      #phone-chassis.mode-android .hw-action { display: none; }
+      #phone-chassis.mode-android .hw-vol-up { right: -11px; top: 155px; width: 3px; height: 50px; }
+      #phone-chassis.mode-android .hw-vol-down { right: -11px; top: 215px; width: 3px; height: 50px; }
+      #phone-chassis.mode-android .hw-power { right: -11px; top: 280px; width: 3px; height: 60px; }
+
+
+      /* Tanpa Frame / Clean Mode */
+      #phone-chassis.mode-responsive {
+        width: 420px;
+        height: 850px;
+        border-radius: 24px;
+        background: transparent;
+        padding: 0;
+        border: 1px solid rgba(219, 186, 99, 0.35);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+      }
+      #phone-chassis.mode-responsive #phone-screen {
+        border-radius: 24px;
+        height: 100%;
+        transform: translateZ(0);
+      }
+      #phone-chassis.mode-responsive .hw-btn,
+      #phone-chassis.mode-responsive #device-cutout,
+      #phone-chassis.mode-responsive #device-status-bar,
+      #phone-chassis.mode-responsive #home-indicator {
+        display: none !important;
+      }
+    }
+
+    /* ----------------------------------------------------
+       NATIVE MOBILE VIEW (< 768px):
+       Removes ALL fake mockups, bezels, and extra bars.
+       Fits 100% borderless & responsively to the user's actual phone screen!
+       ---------------------------------------------------- */
+    @media (max-width: 767px) {
+      .hw-btn,
+      #device-cutout,
+      #device-status-bar,
+      #home-indicator,
+      #device-controls {
+        display: none !important;
+      }
+      #desktop-wrapper {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        min-height: 100dvh !important;
+      }
+      #phone-chassis {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: 100dvh !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+      }
+      #phone-screen {
+        border-radius: 0 !important;
+        min-height: 100dvh !important;
+        width: 100% !important;
+      }
+      #app-scroll-container {
+        height: auto !important;
+        min-height: 100dvh !important;
+      }
     }
   </style>
 </head>
 <body class="bg-stone-950 text-stone-100 font-sans antialiased overflow-x-hidden selection:bg-gold-500 selection:text-black">
 
-  <!-- Canvas for Floating Romantic Petals/Sparkles -->
-  <canvas id="petal-canvas"></canvas>
+  <!-- Desktop Device Controls Toolbar (Hidden on Mobile screens, visible on md+) -->
+  <header id="device-controls" class="hidden md:flex fixed top-4 left-1/2 -translate-x-1/2 z-50 items-center gap-3 bg-stone-900/95 backdrop-blur-xl border border-gold-400/40 px-4 py-2 rounded-full shadow-2xl">
+    <div class="flex items-center gap-2 pr-2 border-r border-stone-800 text-xs text-stone-300 font-medium">
+      <i class="fa-solid fa-mobile-screen-button text-gold-400"></i>
+      <span>Pratinjau Layar HP:</span>
+    </div>
 
-  <!-- Desktop Backdrop Wrapper for luxury mobile mockup presentation -->
-  <div class="min-h-screen flex justify-center items-center bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950/40 relative">
+    <!-- Toggle Buttons -->
+    <div class="flex items-center bg-black/60 p-1 rounded-full border border-stone-800 text-xs">
+      <button id="btn-mode-iphone" onclick="setDeviceMode('iphone')" class="px-3 py-1 rounded-full flex items-center gap-1.5 transition-all text-xs font-semibold bg-gold-500 text-stone-950 shadow">
+        <i class="fa-brands fa-apple text-sm"></i> iPhone 16
+      </button>
+      <button id="btn-mode-android" onclick="setDeviceMode('android')" class="px-3 py-1 rounded-full flex items-center gap-1.5 transition-all text-xs text-stone-300 hover:text-white">
+        <i class="fa-brands fa-android text-sm text-emerald-400"></i> Android S24
+      </button>
+      <button id="btn-mode-responsive" onclick="setDeviceMode('responsive')" class="px-3 py-1 rounded-full flex items-center gap-1.5 transition-all text-xs text-stone-300 hover:text-white">
+        <i class="fa-solid fa-expand text-[11px]"></i> Tanpa Frame
+      </button>
+    </div>
+
+    <div class="hidden lg:flex items-center gap-1.5 pl-2 text-[11px] text-gold-300/80">
+      <i class="fa-solid fa-wand-magic-sparkles text-xs text-gold-400"></i>
+      <span>Di HP pengguna otomatis 100% responsif penuh</span>
+    </div>
+  </header>
+
+  <!-- Desktop Presentation Wrapper -->
+  <div id="desktop-wrapper" class="min-h-screen w-full flex justify-center items-center bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950/40 relative">
     
     <!-- Ambient Blur Glows on Desktop Background -->
     <div class="fixed top-1/4 left-1/4 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none hidden md:block"></div>
     <div class="fixed bottom-1/4 right-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none hidden md:block"></div>
 
-    <!-- Main Mobile Application Container (Standard 430px wide max mobile container) -->
-    <main id="app-container" class="w-full max-w-[430px] min-h-screen bg-stone-950 relative shadow-2xl overflow-x-hidden border-x border-stone-800/40">
+    <!-- Smartphone Mockup Chassis (Adapts on desktop: iPhone/Android; On mobile: 100% borderless responsive) -->
+    <div id="phone-chassis" class="mode-iphone relative transition-all duration-300">
 
-      <!-- ========================================== -->
-      <!-- COVER AWAL (Slide 0.1: Initial Splash Cover) -->
-      <!-- ========================================== -->
-      <section id="cover-awal" class="fixed inset-0 z-50 flex flex-col justify-between items-center text-center p-6 transition-all duration-1000 ease-in-out select-none"
-        style="background: url('cover.jpg') center center/cover no-repeat;">
+      <!-- Physical Hardware Buttons (iPhone & Android accents on desktop) -->
+      <div class="hw-btn hw-action"></div>
+      <div class="hw-btn hw-vol-up"></div>
+      <div class="hw-btn hw-vol-down"></div>
+      <div class="hw-btn hw-power"></div>
+
+      <!-- Smartphone Screen Inner Canvas -->
+      <div id="phone-screen" class="phone-screen-inner relative overflow-hidden bg-stone-950 shadow-2xl">
         
-        <!-- Dark Romantic Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-stone-950/60 to-black/90 pointer-events-none"></div>
+        <!-- Canvas for Floating Romantic Petals/Sparkles -->
+        <canvas id="petal-canvas"></canvas>
 
-        <!-- Top Header: UNDANGAN -->
-        <div class="relative z-10 pt-8 animate-fade-in">
-          <div class="flex items-center justify-center gap-3 mb-2">
-            <span class="h-[1px] w-8 bg-gold-400/70"></span>
-            <i class="fa-solid fa-gem text-gold-400 text-xs"></i>
-            <span class="h-[1px] w-8 bg-gold-400/70"></span>
-          </div>
-          <h1 class="font-cormorant text-2xl md:text-3xl tracking-[0.45em] uppercase font-semibold text-gold-gradient drop-shadow-md">
-            UNDANGAN
-          </h1>
-          <p class="font-sans text-[11px] tracking-[0.3em] uppercase text-stone-300 mt-1 opacity-80">
-            Pernikahan Sakral
-          </p>
-        </div>
-
-        <!-- Center: Emerging Photo Frame with Alternating Effect (cover1.jpg & cover2.jpg) -->
-        <div class="relative z-10 my-auto w-full max-w-[280px]">
-          <!-- Decorative Frame / Arch -->
-          <div class="relative p-2 rounded-t-[140px] rounded-b-3xl glass-dark border border-gold-400/40 shadow-2xl shadow-gold-900/30">
-            <!-- Inner Arch Container -->
-            <div class="relative w-full aspect-[3/4] rounded-t-[130px] rounded-b-2xl overflow-hidden bg-stone-900">
-              <!-- Photo 1: cover1.jpg -->
-              <img id="cover-photo-1" src="cover1.jpg" alt="Ardi & Ramlah" 
-                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-100 scale-100" />
-              <!-- Photo 2: cover2.jpg -->
-              <img id="cover-photo-2" src="cover2.jpg" alt="Ardi & Ramlah Bugis Attire" 
-                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0 scale-105" />
-              
-              <!-- Subtle Inner Shadow & Glow -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
-            </div>
-
-            <!-- Couple Name Tag over Frame -->
-            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-stone-900/95 border border-gold-400/60 px-5 py-1.5 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap">
-              <span class="font-brush text-xl text-gold-300">Ardi & Ramlah</span>
+        <!-- Smartphone Status Bar (Top notch / island / clock / icons) -->
+        <div id="device-status-bar" class="device-status-bar flex justify-between items-center px-6 pt-3 select-none pointer-events-none z-50">
+          <!-- Digital Clock (Live time) -->
+          <span id="status-clock" class="text-xs font-semibold text-stone-100 tracking-tight pl-1">19:30</span>
+          
+          <!-- Dynamic Island (iPhone) / Punch Hole (Android) -->
+          <div id="device-cutout" class="notch-island">
+            <div class="island-camera"></div>
+            <div class="island-sensor"></div>
+            <!-- Dynamic Island Music Playing Pulse -->
+            <div id="island-music-status" class="hidden items-center gap-1 text-[10px] text-gold-400 font-sans">
+              <i class="fa-solid fa-compact-disc text-[10px] spin-music"></i>
+              <span class="text-[9px] tracking-tight">Audio</span>
             </div>
           </div>
-        </div>
 
-        <!-- Bottom: Geser untuk Membuka -->
-        <div id="swipe-trigger" class="relative z-10 pb-8 flex flex-col items-center cursor-pointer group">
-          <div class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gold-300 mb-2 transition-transform duration-300 group-hover:scale-110 shadow-lg animate-bounce">
-            <i class="fa-solid fa-chevron-up text-lg"></i>
-          </div>
-          <p class="font-sans text-xs tracking-[0.25em] uppercase text-stone-300 font-medium group-hover:text-gold-300 transition-colors">
-            Geser Ke Atas Untuk Membuka
-          </p>
-          <span class="text-[10px] text-stone-400/70 tracking-widest mt-0.5">atau ketuk di sini</span>
-        </div>
-      </section>
-
-      <!-- ========================================== -->
-      <!-- COVER KEDUA (Slide 0.2: The Wedding Of & Buka Undangan) -->
-      <!-- ========================================== -->
-      <section id="cover-kedua" class="fixed inset-0 z-40 flex flex-col justify-between items-center text-center p-6 transition-all duration-1000 ease-in-out overflow-hidden select-none">
-        
-        <!-- Background Slideshow: bg1.jpg, bg2.jpg, bg3.jpg softly crossfading -->
-        <div class="absolute inset-0 z-0 overflow-hidden">
-          <div id="bg-slide-1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-100 ken-burns" style="background-image: url('bg1.jpg');"></div>
-          <div id="bg-slide-2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-0 ken-burns" style="background-image: url('bg2.jpg');"></div>
-          <div id="bg-slide-3" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-0 ken-burns" style="background-image: url('bg3.jpg');"></div>
-          <!-- Dark Luxury Gradient Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/90"></div>
-        </div>
-
-        <!-- Top Decorative Ornament -->
-        <div class="relative z-10 pt-10">
-          <p class="font-cormorant text-xs md:text-sm tracking-[0.35em] uppercase text-gold-300 font-medium">
-            Walimatul 'Ursy
-          </p>
-          <div class="flex items-center justify-center gap-2 mt-1">
-            <span class="h-[1px] w-10 bg-gold-400/50"></span>
-            <i class="fa-solid fa-infinity text-gold-400/80 text-xs"></i>
-            <span class="h-[1px] w-10 bg-gold-400/50"></span>
+          <!-- Status Icons -->
+          <div id="status-icons" class="flex items-center gap-1.5 text-stone-100 text-xs pr-1">
+            <i class="fa-solid fa-signal text-[10px]"></i>
+            <i class="fa-solid fa-wifi text-[10px]"></i>
+            <span class="flex items-center text-[10px] gap-0.5 font-sans font-medium">
+              <span>100%</span>
+              <i class="fa-solid fa-battery-full text-xs text-emerald-400"></i>
+            </span>
           </div>
         </div>
 
-        <!-- Center: The Wedding Of & Ardi & Ramlah -->
-        <div class="relative z-10 my-auto space-y-3">
-          <h2 class="font-cormorant text-base md:text-lg tracking-[0.3em] uppercase text-stone-200 font-light">
-            THE WEDDING OF
-          </h2>
-          <h1 class="font-script text-5xl md:text-6xl text-gold-gradient py-2 drop-shadow-xl animate-float-slow">
-            Ardi & Ramlah
-          </h1>
-          <div class="flex items-center justify-center gap-2">
-            <span class="h-[1px] w-12 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
-            <p class="font-serif italic text-xs tracking-widest text-stone-300">Sabtu, 12 September 2026</p>
-            <span class="h-[1px] w-12 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
-          </div>
-        </div>
+        <!-- ========================================== -->
+        <!-- COVER AWAL (Slide 0.1: Initial Splash Cover) -->
+        <!-- ========================================== -->
+        <section id="cover-awal" class="fixed inset-0 z-50 flex flex-col justify-between items-center text-center p-5 sm:p-6 transition-all duration-1000 ease-in-out select-none"
+          style="background: url('cover.jpg') center center/cover no-repeat;">
+          
+          <!-- Dark Romantic Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-stone-950/60 to-black/90 pointer-events-none"></div>
 
-        <!-- Bottom: Tamu Undangan & Tombol Buka Undangan -->
-        <div class="relative z-10 pb-8 w-full max-w-xs space-y-4">
-          <div class="glass-dark rounded-2xl p-4 border border-gold-400/30 shadow-xl backdrop-blur-md">
-            <p class="font-sans text-[11px] uppercase tracking-wider text-stone-400">
-              Kepada Yth. Bapak/Ibu/Saudara/i:
+          <!-- Top Header: UNDANGAN -->
+          <div class="relative z-10 pt-4 sm:pt-8 animate-fade-in">
+            <div class="flex items-center justify-center gap-3 mb-2">
+              <span class="h-[1px] w-8 bg-gold-400/70"></span>
+              <i class="fa-solid fa-gem text-gold-400 text-xs"></i>
+              <span class="h-[1px] w-8 bg-gold-400/70"></span>
+            </div>
+            <h1 class="font-cormorant text-2xl md:text-3xl tracking-[0.45em] uppercase font-semibold text-gold-gradient drop-shadow-md">
+              UNDANGAN
+            </h1>
+          </div>
+
+          <!-- Center: Emerging Photo Frame with Alternating Effect (cover1.jpg & cover2.jpg) -->
+          <div class="relative z-10 my-auto w-full max-w-[240px] sm:max-w-[280px]">
+            <!-- Decorative Frame / Arch -->
+            <div class="relative p-2 rounded-t-[130px] sm:rounded-t-[140px] rounded-b-3xl glass-dark border border-gold-400/40 shadow-2xl shadow-gold-900/30">
+              <!-- Inner Arch Container -->
+              <div class="relative w-full aspect-[3/4] max-h-[36vh] sm:max-h-[42vh] rounded-t-[120px] sm:rounded-t-[130px] rounded-b-2xl overflow-hidden bg-stone-900">
+                <!-- Photo 1: cover1.jpg -->
+                <img id="cover-photo-1" src="cover1.jpg" alt="Ardi & Ramlah" 
+                  class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-100 scale-100" />
+                <!-- Photo 2: cover2.jpg -->
+                <img id="cover-photo-2" src="cover2.jpg" alt="Ardi & Ramlah Bugis Attire" 
+                  class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0 scale-105" />
+                
+                <!-- Subtle Inner Shadow & Glow -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
+              </div>
+
+              <!-- Couple Name Tag over Frame -->
+              <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-stone-900/95 border border-gold-400/60 px-5 py-1.5 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap">
+                <span class="font-brush text-xl text-gold-300">Ardi & Ramlah</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom: Geser untuk Membuka -->
+          <div id="swipe-trigger" class="relative z-10 pb-6 sm:pb-8 flex flex-col items-center cursor-pointer group">
+            <div class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gold-300 mb-2 transition-transform duration-300 group-hover:scale-110 shadow-lg animate-bounce">
+              <i class="fa-solid fa-chevron-up text-lg"></i>
+            </div>
+            <p class="font-sans text-xs tracking-[0.25em] uppercase text-stone-300 font-medium group-hover:text-gold-300 transition-colors">
+              Geser Ke Atas Untuk Membuka
             </p>
-            <h3 id="guest-name-cover" class="font-serif text-lg font-semibold text-gold-200 mt-1 capitalize truncate">
-              Tamu Undangan
-            </h3>
-            <p class="text-[9px] text-stone-400/80 italic mt-1">
-              *Mohon maaf apabila ada kesalahan penulisan nama/gelar
-            </p>
+            <span class="text-[10px] text-stone-400/70 tracking-widest mt-0.5">atau ketuk di sini</span>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- COVER KEDUA (Slide 0.2: The Wedding Of & Buka Undangan) -->
+        <!-- ========================================== -->
+        <section id="cover-kedua" class="fixed inset-0 z-40 flex flex-col justify-between items-center text-center p-5 sm:p-6 transition-all duration-1000 ease-in-out overflow-hidden select-none">
+          
+          <!-- Background Slideshow: bg1.jpg, bg2.jpg, bg3.jpg softly crossfading -->
+          <div class="absolute inset-0 z-0 overflow-hidden">
+            <div id="bg-slide-1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-100 ken-burns" style="background-image: url('bg1.jpg');"></div>
+            <div id="bg-slide-2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-0 ken-burns" style="background-image: url('bg2.jpg');"></div>
+            <div id="bg-slide-3" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-0 ken-burns" style="background-image: url('bg3.jpg');"></div>
+            <!-- Dark Luxury Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/50 to-black/90"></div>
           </div>
 
-          <!-- Tombol Buka Undangan -->
-          <button id="btn-open-invitation" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 text-stone-950 font-sans font-semibold text-sm tracking-widest uppercase shadow-xl shadow-gold-500/25 hover:shadow-gold-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5">
-            <i class="fa-solid fa-envelope-open-text text-base animate-pulse"></i>
-            <span>Buka Undangan</span>
-          </button>
-        </div>
-      </section>
+          <!-- Top Section: Pas dan tepat di sisi atas layar -->
+          <div class="relative z-10 pt-6 sm:pt-8 space-y-1.5 sm:space-y-2 w-full max-w-sm animate-fade-in overflow-visible">
+            <!-- Walimatul 'Ursy Ornament -->
+            <p class="font-cormorant text-[11px] sm:text-xs tracking-[0.35em] uppercase text-gold-300 font-medium">
+              Walimatul 'Ursy
+            </p>
+            <div class="flex items-center justify-center gap-2 mb-1 sm:mb-2">
+              <span class="h-[1px] w-8 bg-gold-400/50"></span>
+              <i class="fa-solid fa-infinity text-gold-400/80 text-[10px]"></i>
+              <span class="h-[1px] w-8 bg-gold-400/50"></span>
+            </div>
 
-      <!-- ========================================== -->
-      <!-- FLOATING AUDIO MUSIC PLAYER & CONTROLS -->
-      <!-- ========================================== -->
-      <div id="music-player-widget" class="fixed bottom-20 right-4 z-50 flex items-center gap-2 transition-all duration-500 opacity-0 pointer-events-none">
-        <button id="btn-toggle-music" class="w-11 h-11 rounded-full glass-dark border border-gold-400/50 flex items-center justify-center text-gold-300 shadow-xl hover:scale-105 active:scale-95 transition-transform" title="Putar / Jeda Musik">
-          <i id="music-icon" class="fa-solid fa-compact-disc text-xl spin-music"></i>
-        </button>
-      </div>
+            <!-- The Wedding Of -->
+            <h2 class="font-cormorant text-xs sm:text-sm tracking-[0.35em] uppercase text-stone-300 font-light drop-shadow">
+              THE WEDDING OF
+            </h2>
 
-      <!-- Audio Element with Romantic Wedding Background Song (with synthesized Web Audio fallback) -->
-      <audio id="wedding-audio" loop preload="auto">
-        <!-- Royalty Free Wedding Instrumental Music Stream -->
-        <source src="https://actions.google.com/sounds/v1/ambiences/warm_morning_acoustic_guitar.ogg" type="audio/ogg">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-love-114408.mp3" type="audio/mp3">
-      </audio>
+            <!-- Nama Mempelai -->
+            <h1 class="font-brittany text-3xl sm:text-4xl md:text-5xl text-gold-gradient pt-3 pb-2 px-2 drop-shadow-xl animate-float-slow leading-normal whitespace-nowrap inline-block">
+              Ardi & Ramlah
+            </h1>
 
-      <!-- ========================================== -->
-      <!-- MAIN INVITATION SLIDES (Slide 1 to Slide 8) -->
-      <!-- ========================================== -->
-      <div id="main-content" class="w-full min-h-screen relative pb-28">
+            <!-- Tanggal Pernikahan -->
+            <div class="flex items-center justify-center gap-2 pt-0.5">
+              <span class="h-[1px] w-10 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
+              <p class="font-serif italic text-xs tracking-widest text-stone-300 drop-shadow">Jum'at, 11 Desember 2026</p>
+              <span class="h-[1px] w-10 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
+            </div>
+          </div>
+
+          <!-- Bottom: Tamu Undangan (Tanpa Kotak) & Tombol Buka Undangan -->
+          <div class="relative z-10 pb-6 sm:pb-8 w-full max-w-xs space-y-4">
+            <!-- Tamu Undangan Tanpa Kotak -->
+            <div class="space-y-1 text-center">
+              <p class="font-sans text-[11px] uppercase tracking-[0.2em] text-stone-300/90 drop-shadow">
+                Kepada Yth. Bapak/Ibu/Saudara/i:
+              </p>
+              <h3 id="guest-name-cover" class="font-serif text-xl sm:text-2xl font-bold text-gold-200 capitalize tracking-wide drop-shadow-md">
+                Tamu Undangan
+              </h3>
+              <p class="text-[10px] text-stone-400/80 italic tracking-wider drop-shadow">
+                *Mohon maaf apabila ada kesalahan penulisan nama/gelar
+              </p>
+            </div>
+
+            <!-- Tombol Buka Undangan -->
+            <button id="btn-open-invitation" onclick="openInvitationAction()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 text-stone-950 font-sans font-semibold text-sm tracking-widest uppercase shadow-xl shadow-gold-500/25 hover:shadow-gold-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5">
+              <i class="fa-solid fa-envelope-open-text text-base animate-pulse"></i>
+              <span>Buka Undangan</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Audio Element with Romantic Wedding Background Song (with synthesized Web Audio fallback) -->
+        <audio id="wedding-audio" loop preload="auto">
+          <!-- Royalty Free Wedding Instrumental Music Stream -->
+          <source src="https://actions.google.com/sounds/v1/ambiences/warm_morning_acoustic_guitar.ogg" type="audio/ogg">
+          <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-love-114408.mp3" type="audio/mp3">
+        </audio>
+
+        <!-- Main Scrollable App Container -->
+        <div id="app-scroll-container" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth">
+          <main id="main-content" class="w-full min-h-screen relative pb-12">
 
         <!-- ========================================== -->
         <!-- SLIDE 1: Hero / You Are Invited & Countdown -->
         <!-- ========================================== -->
         <section id="slide-1" class="relative min-h-screen flex flex-col justify-between items-center text-center p-6 overflow-hidden">
-          <!-- Background Slideshow: bg6.jpg & bg7.jpg softly alternating -->
+          <!-- Background Slideshow: bg4.jpg & bg8.jpg (100% Solid Asli, Tanpa Transparansi/Overlay) -->
           <div class="absolute inset-0 z-0">
-            <div id="hero-bg-1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-100 ken-burns" style="background-image: url('bg6.jpg');"></div>
-            <div id="hero-bg-2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-0 ken-burns" style="background-image: url('bg7.jpg');"></div>
-            <!-- Dark Vignette Gradient -->
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-950/85 via-black/50 to-stone-950"></div>
+            <div id="hero-bg-1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-100 ken-burns" style="background-image: url('bg4.jpg');"></div>
+            <div id="hero-bg-2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out opacity-0 ken-burns" style="background-image: url('bg8.jpg');"></div>
           </div>
 
-          <!-- Top Section -->
-          <div class="relative z-10 pt-12 space-y-2">
-            <span class="inline-block px-4 py-1 rounded-full glass-card border border-gold-400/40 text-[10px] tracking-[0.3em] uppercase text-gold-200">
-              Walimatul 'Ursy
-            </span>
-            <h3 class="font-cormorant text-base md:text-lg tracking-[0.25em] uppercase text-stone-200 font-light">
+          <!-- Top Section: You Are Invited & Nama Mempelai di Sisi Atas Layar -->
+          <div class="relative z-10 pt-6 sm:pt-8 space-y-1 w-full max-w-sm overflow-visible text-center">
+            <h3 class="font-cormorant text-xs sm:text-sm tracking-[0.3em] uppercase text-stone-900 font-semibold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
               You Are Invited To The Wedding
             </h3>
             <div class="flex items-center justify-center gap-2">
-              <span class="h-[1px] w-8 bg-gold-400/60"></span>
-              <i class="fa-solid fa-heart text-rose-400 text-xs animate-ping"></i>
-              <span class="h-[1px] w-8 bg-gold-400/60"></span>
+              <span class="h-[1px] w-8 bg-stone-800/60 shadow"></span>
+              <i class="fa-solid fa-heart text-rose-500 text-xs animate-ping drop-shadow"></i>
+              <span class="h-[1px] w-8 bg-stone-800/60 shadow"></span>
+            </div>
+
+            <!-- Nama Mempelai di sisi atas layar (Font Brittany warna hitam dengan bayangan agar kentara) -->
+            <div class="pt-0.5 overflow-visible">
+              <h1 class="font-brittany text-3xl sm:text-4xl md:text-5xl text-stone-950 pt-3 pb-2 leading-normal whitespace-nowrap inline-block"
+                  style="color: #0a0a0a; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35), 0 0 12px rgba(255, 255, 255, 0.9);">
+                Ardi & Ramlah
+              </h1>
             </div>
           </div>
 
-          <!-- Center: Couple Names -->
-          <div class="relative z-10 my-auto py-6">
-            <h1 class="font-script text-6xl md:text-7xl text-gold-gradient drop-shadow-2xl">
-              Ardi & Ramlah
-            </h1>
-            <p class="font-serif italic text-stone-300 text-sm mt-3 tracking-wider">
-              "Dan di antara tanda-tanda kebesaran-Nya diciptakan-Nya untukmu pasangan hidup..."
-            </p>
-          </div>
+          <!-- Bottom: Countdown to Jum'at, 11 Desember 2026 (Tanpa Kotak) -->
+          <div class="relative z-10 pb-6 w-full max-w-sm space-y-3 mt-auto">
+            <!-- Tanggal Acara -->
+            <div class="flex items-center justify-center gap-2">
+              <i class="fa-regular fa-calendar-check text-stone-900 drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)] text-xs"></i>
+              <span class="font-serif text-xs uppercase tracking-widest text-stone-900 font-semibold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Jum'at, 11 Desember 2026</span>
+            </div>
 
-          <!-- Bottom: Countdown to Sabtu, 12 September 2026 -->
-          <div class="relative z-10 pb-6 w-full max-w-sm space-y-4">
-            <div class="glass-dark rounded-2xl p-5 border border-gold-400/30 shadow-2xl">
-              <div class="flex items-center justify-center gap-2 mb-3">
-                <i class="fa-regular fa-calendar-check text-gold-400"></i>
-                <span class="font-serif text-xs uppercase tracking-widest text-gold-200 font-medium">Sabtu, 12 September 2026</span>
+            <!-- Realtime Countdown (Angka Bersih Tanpa Kotak) -->
+            <div class="grid grid-cols-4 gap-2 text-center py-1" id="countdown-timer">
+              <div class="flex flex-col items-center">
+                <span id="days" class="font-serif text-3xl sm:text-4xl font-bold text-stone-950 block leading-tight drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)]" style="text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 0 10px rgba(255,255,255,0.9);">00</span>
+                <span class="text-[10px] uppercase tracking-widest text-stone-800 font-semibold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Hari</span>
               </div>
-
-              <!-- Realtime Countdown Boxes -->
-              <div class="grid grid-cols-4 gap-2 text-center" id="countdown-timer">
-                <div class="bg-black/40 rounded-xl p-2.5 border border-gold-400/20">
-                  <span id="days" class="font-serif text-2xl font-bold text-gold-300 block">00</span>
-                  <span class="text-[9px] uppercase tracking-wider text-stone-400">Hari</span>
-                </div>
-                <div class="bg-black/40 rounded-xl p-2.5 border border-gold-400/20">
-                  <span id="hours" class="font-serif text-2xl font-bold text-gold-300 block">00</span>
-                  <span class="text-[9px] uppercase tracking-wider text-stone-400">Jam</span>
-                </div>
-                <div class="bg-black/40 rounded-xl p-2.5 border border-gold-400/20">
-                  <span id="minutes" class="font-serif text-2xl font-bold text-gold-300 block">00</span>
-                  <span class="text-[9px] uppercase tracking-wider text-stone-400">Menit</span>
-                </div>
-                <div class="bg-black/40 rounded-xl p-2.5 border border-gold-400/20">
-                  <span id="seconds" class="font-serif text-2xl font-bold text-gold-300 block">00</span>
-                  <span class="text-[9px] uppercase tracking-wider text-stone-400">Detik</span>
-                </div>
+              <div class="flex flex-col items-center">
+                <span id="hours" class="font-serif text-3xl sm:text-4xl font-bold text-stone-950 block leading-tight drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)]" style="text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 0 10px rgba(255,255,255,0.9);">00</span>
+                <span class="text-[10px] uppercase tracking-widest text-stone-800 font-semibold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Jam</span>
               </div>
+              <div class="flex flex-col items-center">
+                <span id="minutes" class="font-serif text-3xl sm:text-4xl font-bold text-stone-950 block leading-tight drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)]" style="text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 0 10px rgba(255,255,255,0.9);">00</span>
+                <span class="text-[10px] uppercase tracking-widest text-stone-800 font-semibold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Menit</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span id="seconds" class="font-serif text-3xl sm:text-4xl font-bold text-stone-950 block leading-tight drop-shadow-[0_2px_4px_rgba(255,255,255,0.9)]" style="text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 0 10px rgba(255,255,255,0.9);">00</span>
+                <span class="text-[10px] uppercase tracking-widest text-stone-800 font-semibold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Detik</span>
+              </div>
+            </div>
 
-              <!-- Button Simpan Tanggal ke Kalender -->
-              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Ardi+%26+Ramlah&dates=20260912T080000Z/20260912T170000Z&details=Undangan+Pernikahan+Ardi+%26+Ramlah+-+Sabtu,+12+September+2026&location=Kediaman+Mempelai" 
+            <!-- Button Simpan Tanggal ke Kalender (Pill Minimalis) -->
+            <div class="pt-1">
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Ardi+%26+Ramlah&dates=20261211T010000Z/20261211T100000Z&details=Undangan+Pernikahan+Ardi+%26+Ramlah+-+Jum%27at,+11+Desember+2026&location=Kediaman+Mempelai" 
                 target="_blank" rel="noopener noreferrer"
-                class="mt-4 w-full py-2.5 px-4 rounded-xl glass-card border border-gold-400/40 text-gold-200 text-xs font-medium tracking-wider flex items-center justify-center gap-2 hover:bg-gold-500/20 active:scale-95 transition-all">
+                class="inline-flex items-center justify-center gap-2 py-2 px-5 rounded-full border border-stone-800/40 bg-white/40 backdrop-blur-sm text-stone-950 text-xs font-semibold tracking-wider hover:bg-white/60 active:scale-95 transition-all shadow-sm">
                 <i class="fa-regular fa-calendar-plus text-sm"></i>
                 <span>Simpan Tanggal di Kalender</span>
               </a>
             </div>
 
             <!-- Scroll Indicator -->
-            <div class="flex flex-col items-center pt-2">
-              <span class="text-[10px] tracking-widest text-stone-400 uppercase">Scroll Ke Bawah</span>
-              <i class="fa-solid fa-angle-down text-gold-400 text-xs animate-bounce mt-1"></i>
+            <div class="flex flex-col items-center pt-1">
+              <span class="text-[10px] tracking-widest text-stone-800 font-medium uppercase drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Scroll Ke Bawah</span>
+              <i class="fa-solid fa-angle-down text-stone-900 text-xs animate-bounce mt-0.5 drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]"></i>
             </div>
           </div>
         </section>
@@ -384,51 +745,56 @@
         <!-- ========================================== -->
         <!-- SLIDE 2: Kata-Kata Pernikahan Romantis -->
         <!-- ========================================== -->
-        <section id="slide-2" class="relative min-h-screen flex flex-col justify-center items-center text-center p-6 my-4 overflow-hidden"
-          style="background: url('kata.jpg') center center/cover no-repeat;">
+        <section id="slide-2" class="relative min-h-screen flex flex-col justify-center items-center text-center p-6 my-4 overflow-hidden">
           
-          <!-- Romantic Frosted Overlay to ensure high readability -->
-          <div class="absolute inset-0 bg-stone-950/80 backdrop-blur-[2px]"></div>
+          <!-- Background: kata.jpg 100% Solid & Jelas (Tanpa Kotak/Blur Gelap) -->
+          <div class="absolute inset-0 z-0 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center ken-burns" style="background-image: url('kata.jpg');"></div>
+          </div>
 
           <div class="relative z-10 w-full max-w-sm space-y-6">
             
             <!-- Section Subtitle -->
-            <div>
+            <div class="zoom-in-reveal">
               <div class="flex items-center justify-center gap-2 mb-1">
-                <span class="h-[1px] w-8 bg-gold-400/60"></span>
-                <i class="fa-solid fa-feather text-gold-400 text-xs"></i>
-                <span class="h-[1px] w-8 bg-gold-400/60"></span>
+                <span class="h-[1px] w-8 bg-stone-800/60 shadow"></span>
+                <i class="fa-solid fa-feather text-stone-900 text-xs drop-shadow"></i>
+                <span class="h-[1px] w-8 bg-stone-800/60 shadow"></span>
               </div>
-              <h2 class="font-cormorant text-xs uppercase tracking-[0.3em] text-gold-300 font-semibold">
+              <h2 class="font-cormorant text-xs uppercase tracking-[0.3em] text-stone-900 font-bold drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
                 Kisah & Janji Suci
               </h2>
             </div>
 
-            <!-- Quran Verse Box -->
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-2xl space-y-4">
+            <!-- Quran Verse (Tanpa Kotak, Efek Zoom Muncul Perlahan dari Kecil ke Besar) -->
+            <div id="quran-verse-content" class="zoom-in-reveal space-y-4 px-2 py-3" style="transition-delay: 0.15s;">
               <!-- Bismillah -->
-              <p class="font-arabic text-xl text-gold-200 leading-loose">
+              <p class="font-arabic text-2xl text-stone-950 font-bold leading-loose" 
+                 style="text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 0 12px rgba(255,255,255,0.95);">
                 بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
               </p>
 
               <!-- Arabic Ayat Ar-Rum: 21 -->
-              <p class="font-arabic text-lg text-stone-200 leading-loose" dir="rtl">
+              <p class="font-arabic text-xl sm:text-2xl text-stone-900 font-medium leading-loose" dir="rtl" 
+                 style="text-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 0 12px rgba(255,255,255,0.95);">
                 وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
               </p>
 
-              <div class="h-[1px] w-16 mx-auto bg-gold-400/40"></div>
+              <div class="h-[1px] w-20 mx-auto bg-stone-800/40 shadow"></div>
 
               <!-- Translation -->
-              <p class="font-cormorant italic text-stone-300 text-sm leading-relaxed">
+              <p class="font-cormorant italic text-stone-900 text-sm sm:text-base leading-relaxed font-medium" 
+                 style="text-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 0 10px rgba(255,255,255,0.95);">
                 "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir."
               </p>
-              <p class="font-sans text-[11px] font-semibold text-gold-300 tracking-wider">
-                — QS. Ar-Rum: 21
+              <p class="font-sans text-[11px] font-bold text-stone-950 tracking-widest uppercase" 
+                 style="text-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 0 8px rgba(255,255,255,0.9);">
+                — QS. Ar-Rum: 21 —
               </p>
             </div>
 
             <!-- Image: kata2.jpg with romantic frame -->
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-gold-400/40 group">
+            <div class="zoom-in-reveal relative rounded-2xl overflow-hidden shadow-2xl border-2 border-stone-800/30 group" style="transition-delay: 0.3s;">
               <img src="kata2.jpg" alt="Ardi & Ramlah Twilight Romance" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
                 <p class="font-brush text-2xl text-gold-200 drop-shadow">
@@ -438,8 +804,8 @@
             </div>
 
             <!-- Heartfelt Quote -->
-            <div class="glass-card rounded-2xl p-4 border border-white/10">
-              <p class="font-sans text-xs text-stone-300 leading-relaxed italic">
+            <div class="zoom-in-reveal rounded-2xl p-4 border border-stone-800/20 bg-white/40 backdrop-blur-sm" style="transition-delay: 0.4s;">
+              <p class="font-sans text-xs text-stone-900 leading-relaxed italic font-medium drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
                 "Dua hati yang dipersatukan dalam ikrar suci, mengarungi bahtera kehidupan dengan rasa cinta, ketulusan, dan ridho ilahi."
               </p>
             </div>
@@ -1047,7 +1413,7 @@
               
               <div class="pt-4 border-t border-gold-400/30 space-y-1">
                 <p class="font-sans text-xs text-stone-400">Kami yang berbahagia,</p>
-                <h3 class="font-script text-4xl text-gold-300 py-1">
+                <h3 class="font-brittany text-3xl sm:text-4xl text-gold-300 py-1 whitespace-nowrap">
                   Ardi & Ramlah
                 </h3>
                 <p class="font-sans text-[11px] text-stone-300">
@@ -1072,67 +1438,33 @@
 
         </section>
 
-      </div> <!-- /main-content -->
+          </main>
+        </div> <!-- /app-scroll-container -->
 
 
-      <!-- ========================================== -->
-      <!-- BOTTOM NAVIGATION BAR (Slide Switcher) -->
-      <!-- ========================================== -->
-      <nav id="bottom-navbar" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40 glass-dark border-t border-gold-400/25 px-2 py-2 flex items-center justify-around transition-all duration-500 opacity-0 pointer-events-none">
-        
-        <a href="#slide-1" class="flex flex-col items-center text-stone-400 hover:text-gold-300 transition-colors p-1 text-center">
-          <i class="fa-solid fa-house text-sm"></i>
-          <span class="text-[9px] mt-0.5">Home</span>
-        </a>
-
-        <a href="#slide-3" class="flex flex-col items-center text-stone-400 hover:text-gold-300 transition-colors p-1 text-center">
-          <i class="fa-solid fa-user-group text-sm"></i>
-          <span class="text-[9px] mt-0.5">Mempelai</span>
-        </a>
-
-        <a href="#slide-4" class="flex flex-col items-center text-stone-400 hover:text-gold-300 transition-colors p-1 text-center">
-          <i class="fa-regular fa-calendar-days text-sm"></i>
-          <span class="text-[9px] mt-0.5">Acara</span>
-        </a>
-
-        <a href="#slide-5" class="flex flex-col items-center text-stone-400 hover:text-gold-300 transition-colors p-1 text-center">
-          <i class="fa-regular fa-images text-sm"></i>
-          <span class="text-[9px] mt-0.5">Galeri</span>
-        </a>
-
-        <a href="#slide-6" class="flex flex-col items-center text-stone-400 hover:text-gold-300 transition-colors p-1 text-center">
-          <i class="fa-solid fa-gift text-sm"></i>
-          <span class="text-[9px] mt-0.5">Gift</span>
-        </a>
-
-        <a href="#slide-7" class="flex flex-col items-center text-stone-400 hover:text-gold-300 transition-colors p-1 text-center">
-          <i class="fa-regular fa-comment-dots text-sm"></i>
-          <span class="text-[9px] mt-0.5">Ucapan</span>
-        </a>
-
-      </nav>
-
-    </main>
-  </div>
 
 
-  <!-- ========================================== -->
-  <!-- LIGHTBOX MODAL FOR GALLERY FULLSCREEN -->
-  <!-- ========================================== -->
-  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none select-none">
-    <button onclick="closeLightbox()" class="absolute top-5 right-5 text-stone-300 hover:text-white text-2xl z-50 p-2">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <div class="relative max-w-full max-h-full flex items-center justify-center">
-      <img id="lightbox-image" src="" alt="Gallery Preview" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl border border-stone-800">
-    </div>
-  </div>
+        <!-- ========================================== -->
+        <!-- LIGHTBOX MODAL FOR GALLERY FULLSCREEN -->
+        <!-- ========================================== -->
+        <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none select-none">
+          <button onclick="closeLightbox()" class="absolute top-5 right-5 text-stone-300 hover:text-white text-2xl z-50 p-2">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="relative max-w-full max-h-full flex items-center justify-center">
+            <img id="lightbox-image" src="" alt="Gallery Preview" class="max-w-[90%] max-h-[80%] object-contain rounded-xl shadow-2xl border border-stone-800">
+          </div>
+        </div>
 
-  <!-- Toast Notification Alert -->
-  <div id="toast-notification" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full glass-dark border border-gold-400/60 text-gold-200 text-xs font-medium shadow-2xl transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none flex items-center gap-2">
-    <i class="fa-solid fa-check-circle text-emerald-400"></i>
-    <span id="toast-message">Teks berhasil disalin!</span>
-  </div>
+        <!-- Toast Notification Alert -->
+        <div id="toast-notification" class="fixed top-12 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full glass-dark border border-gold-400/60 text-gold-200 text-xs font-medium shadow-2xl transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-check-circle text-emerald-400"></i>
+          <span id="toast-message">Teks berhasil disalin!</span>
+        </div>
+
+      </div> <!-- /phone-screen -->
+    </div> <!-- /phone-chassis -->
+  </div> <!-- /desktop-wrapper -->
 
 
   <!-- ========================================== -->
@@ -1249,7 +1581,7 @@
 
 
     // ---------------------------------------------
-    // 5. Slide 1 Hero Background Slideshow (bg6.jpg & bg7.jpg)
+    // 5. Slide 1 Hero Background Slideshow (bg4.jpg & bg8.jpg)
     // ---------------------------------------------
     let currentHeroBg = 1;
     setInterval(() => {
@@ -1319,22 +1651,28 @@
     }
 
     function startMusic() {
+      if (!weddingAudio) return;
       weddingAudio.volume = 0.6;
-      const playPromise = weddingAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          isMusicPlaying = true;
-          updateMusicUI();
-        }).catch(() => {
-          // Fallback to synthesized melody
-          isMusicPlaying = true;
-          playRomanticSynth();
-          updateMusicUI();
-        });
+      try {
+        const playPromise = weddingAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isMusicPlaying = true;
+            updateMusicUI();
+          }).catch(() => {
+            // Fallback to synthesized melody
+            isMusicPlaying = true;
+            playRomanticSynth();
+            updateMusicUI();
+          });
+        }
+      } catch (e) {
+        console.log("Audio play error:", e);
       }
     }
 
     function toggleMusic() {
+      if (!weddingAudio) return;
       if (isMusicPlaying) {
         weddingAudio.pause();
         if (synthInterval) clearInterval(synthInterval);
@@ -1347,67 +1685,88 @@
 
     function updateMusicUI() {
       const musicIcon = document.getElementById('music-icon');
-      if (!musicIcon) return;
-      if (isMusicPlaying) {
-        musicIcon.classList.add('spin-music');
-        musicIcon.classList.replace('fa-play', 'fa-compact-disc');
-      } else {
-        musicIcon.classList.remove('spin-music');
-        musicIcon.classList.replace('fa-compact-disc', 'fa-play');
+      const islandMusicStatus = document.getElementById('island-music-status');
+      const deviceCutout = document.getElementById('device-cutout');
+
+      if (musicIcon) {
+        if (isMusicPlaying) {
+          musicIcon.classList.add('spin-music');
+          musicIcon.classList.replace('fa-play', 'fa-compact-disc');
+        } else {
+          musicIcon.classList.remove('spin-music');
+          musicIcon.classList.replace('fa-compact-disc', 'fa-play');
+        }
+      }
+
+      if (islandMusicStatus) {
+        if (isMusicPlaying) {
+          islandMusicStatus.classList.remove('hidden');
+          islandMusicStatus.classList.add('flex');
+          if (deviceCutout) deviceCutout.classList.add('playing-music');
+        } else {
+          islandMusicStatus.classList.add('hidden');
+          islandMusicStatus.classList.remove('flex');
+          if (deviceCutout) deviceCutout.classList.remove('playing-music');
+        }
       }
     }
 
-    document.getElementById('btn-toggle-music').addEventListener('click', toggleMusic);
+    const btnToggleMusic = document.getElementById('btn-toggle-music');
+    if (btnToggleMusic) {
+      btnToggleMusic.addEventListener('click', toggleMusic);
+    }
 
-    btnOpenInvitation.addEventListener('click', () => {
+    function openInvitationAction() {
       // 1. Smoothly fade out Cover Kedua
-      coverKedua.style.transform = 'translateY(-100%)';
-      coverKedua.style.opacity = '0';
-      setTimeout(() => {
-        coverKedua.style.display = 'none';
-      }, 1000);
+      const cover = document.getElementById('cover-kedua');
+      if (cover) {
+        cover.style.transform = 'translateY(-100%)';
+        cover.style.opacity = '0';
+        setTimeout(() => {
+          cover.style.display = 'none';
+        }, 1000);
+      }
 
       // 2. Start romantic music
       startMusic();
 
-      // 3. Show music player & bottom navigation bar
-      musicPlayerWidget.classList.remove('opacity-0', 'pointer-events-none');
-      musicPlayerWidget.classList.add('opacity-100');
-      bottomNavbar.classList.remove('opacity-0', 'pointer-events-none');
-      bottomNavbar.classList.add('opacity-100');
+      // 3. Scroll smoothly to Slide 1
+      const targetSlide = document.getElementById('slide-1');
+      if (targetSlide) {
+        targetSlide.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    window.openInvitationAction = openInvitationAction;
 
-      // 4. Scroll smoothly to Slide 1
-      document.getElementById('slide-1').scrollIntoView({ behavior: 'smooth' });
-    });
+    if (btnOpenInvitation) {
+      btnOpenInvitation.addEventListener('click', openInvitationAction);
+    }
 
 
     // ---------------------------------------------
-    // 7. Live Countdown Timer (Sabtu, 12 September 2026)
+    // 7. Live Countdown Timer (Jum'at, 11 Desember 2026 09.00 WITA)
     // ---------------------------------------------
-    const weddingDate = new Date('September 12, 2026 09:00:00').getTime();
+    const weddingTargetTimestamp = new Date('December 11, 2026 09:00:00').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = weddingDate - now;
+      const distance = weddingTargetTimestamp - now;
 
-      if (distance < 0) {
-        document.getElementById('countdown-timer').innerHTML = `
-          <div class="col-span-4 p-3 bg-gold-500/20 rounded-xl text-gold-300 font-serif font-bold text-sm">
-            Acara Sedang / Telah Berlangsung
-          </div>
-        `;
-        return;
-      }
-
+      // Hitung Hari, Jam, Menit, dan Detik yang berjalan
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById('days').innerText = String(days).padStart(2, '0');
-      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      if (daysEl) daysEl.innerText = String(Math.max(0, days)).padStart(2, '0');
+      if (hoursEl) hoursEl.innerText = String(Math.max(0, hours)).padStart(2, '0');
+      if (minutesEl) minutesEl.innerText = String(Math.max(0, minutes)).padStart(2, '0');
+      if (secondsEl) secondsEl.innerText = String(Math.max(0, seconds)).padStart(2, '0');
     }
 
     setInterval(updateCountdown, 1000);
@@ -1554,7 +1913,7 @@
     function shareInvitation() {
       const guestName = getGuestName();
       const currentUrl = window.location.href;
-      const text = `Assalamu’alaikum Wr. Wb.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:\n\n*The Wedding of Ardi & Ramlah*\nSabtu, 12 September 2026\n\nUntuk informasi lengkap acara dan doa restu dapat diakses melalui link undangan digital berikut:\n${currentUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila berkenan hadir dan memberikan doa restu.\n\nTerima kasih.`;
+      const text = `Assalamu’alaikum Wr. Wb.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:\n\n*The Wedding of Ardi & Ramlah*\nJum'at, 11 Desember 2026\n\nUntuk informasi lengkap acara dan doa restu dapat diakses melalui link undangan digital berikut:\n${currentUrl}\n\nMerupakan suatu kebahagiaan bagi kami apabila berkenan hadir dan memberikan doa restu.\n\nTerima kasih.`;
       
       const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
       window.open(whatsappUrl, '_blank');
@@ -1566,32 +1925,41 @@
     // ---------------------------------------------
     const canvas = document.getElementById('petal-canvas');
     const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+    let width = 0;
+    let height = 0;
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
+    function updateCanvasSize() {
+      if (!canvas) return;
+      const container = canvas.parentElement || document.body;
+      width = canvas.width = container.clientWidth || window.innerWidth;
+      height = canvas.height = container.clientHeight || window.innerHeight;
+    }
+    updateCanvasSize();
+
+    window.addEventListener('resize', updateCanvasSize);
 
     const particles = [];
     const particleCount = 28;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
+        x: Math.random() * (width || 400),
+        y: Math.random() * (height || 800),
         size: Math.random() * 5 + 3,
         speedX: Math.random() * 1.2 - 0.6,
         speedY: Math.random() * 1.5 + 0.5,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: Math.random() * 0.02 - 0.01,
         opacity: Math.random() * 0.6 + 0.2,
-        isGold: Math.random() > 0.4 // gold sparkle or rose petal
+        isGold: Math.random() > 0.4
       });
     }
 
     function drawParticles() {
+      if (!ctx || width === 0 || height === 0) {
+        requestAnimationFrame(drawParticles);
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
 
       particles.forEach(p => {
@@ -1601,13 +1969,11 @@
         ctx.globalAlpha = p.opacity;
 
         if (p.isGold) {
-          // Golden sparkle
           ctx.fillStyle = '#DBBA63';
           ctx.beginPath();
           ctx.arc(0, 0, p.size * 0.4, 0, Math.PI * 2);
           ctx.fill();
         } else {
-          // Romantic soft rose petal
           ctx.fillStyle = '#E8A598';
           ctx.beginPath();
           ctx.ellipse(0, 0, p.size, p.size * 0.6, 0, 0, Math.PI * 2);
@@ -1632,6 +1998,175 @@
     }
 
     drawParticles();
+
+
+    // ---------------------------------------------
+    // 13. Device Mode Switcher (iPhone / Android / Responsive)
+    // ---------------------------------------------
+    function setDeviceMode(mode) {
+      const chassis = document.getElementById('phone-chassis');
+      const btnIphone = document.getElementById('btn-mode-iphone');
+      const btnAndroid = document.getElementById('btn-mode-android');
+      const btnResponsive = document.getElementById('btn-mode-responsive');
+      const statusIcons = document.getElementById('status-icons');
+      if (!chassis || !btnIphone || !btnAndroid || !btnResponsive) return;
+
+      chassis.classList.remove('mode-iphone', 'mode-android', 'mode-responsive');
+
+      [btnIphone, btnAndroid, btnResponsive].forEach(btn => {
+        btn.classList.remove('bg-gold-500', 'text-stone-950', 'font-semibold', 'shadow');
+        btn.classList.add('text-stone-300');
+      });
+
+      if (mode === 'iphone') {
+        chassis.classList.add('mode-iphone');
+        btnIphone.classList.add('bg-gold-500', 'text-stone-950', 'font-semibold', 'shadow');
+        btnIphone.classList.remove('text-stone-300');
+        if (statusIcons) {
+          statusIcons.innerHTML = `
+            <i class="fa-solid fa-signal text-[10px]"></i>
+            <i class="fa-solid fa-wifi text-[10px]"></i>
+            <span class="flex items-center text-[10px] gap-0.5 font-sans font-medium">
+              <span>100%</span>
+              <i class="fa-solid fa-battery-full text-xs text-emerald-400"></i>
+            </span>
+          `;
+        }
+      } else if (mode === 'android') {
+        chassis.classList.add('mode-android');
+        btnAndroid.classList.add('bg-gold-500', 'text-stone-950', 'font-semibold', 'shadow');
+        btnAndroid.classList.remove('text-stone-300');
+        if (statusIcons) {
+          statusIcons.innerHTML = `
+            <span class="text-[9px] font-mono tracking-tighter opacity-80 mr-0.5">5G</span>
+            <i class="fa-solid fa-signal text-[9px]"></i>
+            <i class="fa-solid fa-wifi text-[9px]"></i>
+            <i class="fa-solid fa-battery-three-quarters text-xs text-stone-200 ml-0.5"></i>
+          `;
+        }
+      } else {
+        chassis.classList.add('mode-responsive');
+        btnResponsive.classList.add('bg-gold-500', 'text-stone-950', 'font-semibold', 'shadow');
+        btnResponsive.classList.remove('text-stone-300');
+      }
+
+      try {
+        localStorage.setItem('preferred_wedding_device_preview', mode);
+      } catch (e) {}
+
+      setTimeout(updateCanvasSize, 350);
+    }
+
+    // Digital Clock in Status Bar
+    function updateDeviceClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const clockEl = document.getElementById('status-clock');
+      if (clockEl) clockEl.innerText = `${hours}:${minutes}`;
+    }
+    setInterval(updateDeviceClock, 1000);
+    updateDeviceClock();
+
+    // ---------------------------------------------
+    // 14. Bottom Navigation Smooth Scroll & Active Indicator
+    // ---------------------------------------------
+    document.querySelectorAll('#bottom-navbar a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    function setupNavHighlightObserver() {
+      const sections = document.querySelectorAll('#main-content section[id]');
+      const navLinks = document.querySelectorAll('#bottom-navbar a[href^="#"]');
+      if (!sections.length || !navLinks.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const currentId = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              const linkTarget = link.getAttribute('href').substring(1);
+              if (linkTarget === currentId) {
+                link.classList.remove('text-stone-400');
+                link.classList.add('text-gold-300');
+              } else {
+                link.classList.remove('text-gold-300');
+                link.classList.add('text-stone-400');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.25 });
+
+      sections.forEach(sec => observer.observe(sec));
+    }
+
+    // ---------------------------------------------
+    // 15. Scroll-triggered Zoom In Entrance Animation
+    // ---------------------------------------------
+    function setupScrollAnimations() {
+      const scrollContainer = document.getElementById('app-scroll-container');
+      const zoomElements = document.querySelectorAll('.zoom-in-reveal');
+      if (!zoomElements.length) return;
+
+      function checkScrollZoom() {
+        const viewportHeight = window.innerHeight;
+        zoomElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          // Muncul perlahan ketika elemen telah masuk ke area pandang layar
+          if (rect.top <= viewportHeight * 0.88 && rect.bottom >= viewportHeight * 0.1) {
+            el.classList.add('zoom-in-visible');
+          } else {
+            el.classList.remove('zoom-in-visible');
+          }
+        });
+      }
+
+      // Cek saat pertama kali dimuat
+      setTimeout(checkScrollZoom, 250);
+
+      // Event listener scroll
+      if (scrollContainer) {
+        scrollContainer.addEventListener('scroll', checkScrollZoom, { passive: true });
+      }
+      window.addEventListener('scroll', checkScrollZoom, { passive: true });
+
+      // IntersectionObserver
+      try {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('zoom-in-visible');
+            } else {
+              entry.target.classList.remove('zoom-in-visible');
+            }
+          });
+        }, {
+          threshold: 0.15
+        });
+        zoomElements.forEach(el => observer.observe(el));
+      } catch (err) {
+        console.log("Observer notice:", err);
+      }
+    }
+
+    // Initialize saved device mode on load
+    window.addEventListener('DOMContentLoaded', () => {
+      let savedMode = 'iphone';
+      try {
+        savedMode = localStorage.getItem('preferred_wedding_device_preview') || 'iphone';
+      } catch (e) {}
+      setDeviceMode(savedMode);
+      setupNavHighlightObserver();
+      setupScrollAnimations();
+    });
   </script>
 </body>
 </html>
