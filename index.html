@@ -817,94 +817,87 @@
         <!-- ========================================== -->
         <!-- SLIDE 3: Mempelai (The Bride & Groom) -->
         <!-- ========================================== -->
-        <section id="slide-3" class="relative min-h-screen flex flex-col justify-center items-center text-center p-6 my-6">
+        <section id="slide-3" class="relative min-h-screen flex flex-col justify-center items-center text-center p-4 sm:p-6 my-6">
           
-          <div class="relative z-10 w-full max-w-sm space-y-8">
+          <div class="relative z-10 w-full max-w-sm space-y-6">
             
             <!-- Section Header -->
-            <div class="space-y-2">
+            <div class="space-y-1.5">
               <span class="font-cormorant text-xs uppercase tracking-[0.3em] text-gold-300 font-semibold block">
                 Pasangan Pengantin
               </span>
-              <h2 class="font-serif text-3xl text-gold-gradient font-bold">
+              <h2 class="font-serif text-3xl sm:text-4xl text-gold-gradient font-bold">
                 Mempelai
               </h2>
-              <p class="font-sans text-xs text-stone-300 leading-relaxed px-4">
+              <p class="font-sans text-[11px] sm:text-xs text-stone-300 leading-relaxed px-2">
                 Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami bermaksud menyelenggarakan syukuran pernikahan putra-putri kami:
               </p>
             </div>
 
-            <!-- Mempelai Pria: Ardi -->
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-2xl relative space-y-4">
-              <!-- Groom Photo: photo_2026-11-26_09-04-32.jpg -->
-              <div class="relative mx-auto w-40 h-48 rounded-2xl overflow-hidden border-2 border-gold-400 shadow-xl group">
-                <img src="photo_2026-11-26_09-04-32.jpg" alt="Mempelai Pria - Ardi" 
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            <!-- Bersusun ke Bawah: Kotak Pria di Atas, Kotak Wanita di Bawah -->
+            <div class="space-y-6 w-full">
+              
+              <!-- KOTAK PRIA (Di Atas, Foto Full Menyatu dengan Tulisan Nama, Geser ke Kanan) -->
+              <div class="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-3xl overflow-hidden border-2 border-gold-400/40 shadow-2xl group">
+                <!-- Slideshow Foto Full Pria (groom1, groom2, groom3 geser ke kanan) -->
+                <div class="groom-slide absolute inset-0 bg-cover bg-center" style="background-image: url('groom1.jpg'); transform: translateX(0); opacity: 1; z-index: 2;"></div>
+                <div class="groom-slide absolute inset-0 bg-cover bg-center" style="background-image: url('groom2.jpg'); transform: translateX(-100%); opacity: 0; z-index: 1;"></div>
+                <div class="groom-slide absolute inset-0 bg-cover bg-center" style="background-image: url('groom3.jpg'); transform: translateX(-100%); opacity: 0; z-index: 1;"></div>
+
+                <!-- Gradient Overlay terang agar tulisan warna hitam sangat kentara dan tajam -->
+                <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent pointer-events-none"></div>
+
+                <!-- Identitas Mempelai Pria (Warna hitam dengan bayangan agar kentara) -->
+                <div class="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-center space-y-1.5 z-10 pointer-events-none">
+                  <span class="inline-block px-3 py-0.5 rounded-full bg-stone-900 text-stone-50 border border-stone-800 text-[10px] uppercase tracking-widest font-bold shadow-sm">
+                    Mempelai Pria
+                  </span>
+                  <h3 class="font-serif text-2xl sm:text-3xl font-bold text-stone-950 leading-tight" 
+                      style="color: #000000; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 12px rgba(255, 255, 255, 0.95);">
+                    Ardiansah, S.Pd.,Gr
+                  </h3>
+                  <p class="font-sans text-xs sm:text-sm text-stone-900 font-semibold leading-relaxed" 
+                     style="color: #111111; text-shadow: 0 0 8px rgba(255, 255, 255, 0.95);">
+                    Putra Kedua Bapak Suhardi Labelo &amp; Ibu Hj. Masna Lamangka
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 class="font-serif text-2xl font-bold text-gold-gradient">
-                  Ardi
-                </h3>
-                <span class="inline-block px-3 py-0.5 rounded-full bg-gold-400/10 text-gold-300 text-[10px] tracking-widest uppercase mt-1">
-                  Mempelai Pria
-                </span>
-                <p class="font-sans text-xs text-stone-300 mt-2 leading-relaxed">
-                  Putra tercinta dari keluarga terhormat<br>
-                  <span class="font-semibold text-stone-200">Bapak & Ibu Kedua Mempelai</span>
-                </p>
+              <!-- Romantic Ampersand Divider -->
+              <div class="flex items-center justify-center gap-4 py-1">
+                <span class="h-[1px] w-20 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
+                <div class="w-10 h-10 rounded-full glass-card border border-gold-400/50 flex items-center justify-center shadow-lg">
+                  <span class="font-script text-2xl text-gold-300">&amp;</span>
+                </div>
+                <span class="h-[1px] w-20 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
               </div>
 
-              <!-- Instagram Groom -->
-              <div class="pt-1">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
-                  class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-gold-400/40 text-xs text-gold-200 hover:text-white hover:bg-gold-500/30 transition-all">
-                  <i class="fa-brands fa-instagram text-sm text-pink-400"></i>
-                  <span>@ardi_groom</span>
-                </a>
-              </div>
-            </div>
+              <!-- KOTAK WANITA (Di Bawah, Foto Full Menyatu dengan Tulisan Nama, Geser ke Kiri) -->
+              <div class="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-3xl overflow-hidden border-2 border-gold-400/40 shadow-2xl group">
+                <!-- Slideshow Foto Full Wanita (bride1, bride3, bride2 geser berlawanan) -->
+                <div class="bride-slide absolute inset-0 bg-cover bg-center" style="background-image: url('bride1.jpg'); transform: translateX(0); opacity: 1; z-index: 2;"></div>
+                <div class="bride-slide absolute inset-0 bg-cover bg-center" style="background-image: url('bride3.jpg'); transform: translateX(100%); opacity: 0; z-index: 1;"></div>
+                <div class="bride-slide absolute inset-0 bg-cover bg-center" style="background-image: url('bride2.jpg'); transform: translateX(100%); opacity: 0; z-index: 1;"></div>
 
-            <!-- Ampersand & Heart Divider -->
-            <div class="flex items-center justify-center gap-4 my-2">
-              <span class="h-[1px] w-20 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
-              <div class="w-10 h-10 rounded-full glass-card border border-gold-400/50 flex items-center justify-center shadow-lg">
-                <span class="font-script text-2xl text-gold-300">&</span>
-              </div>
-              <span class="h-[1px] w-20 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></span>
-            </div>
+                <!-- Gradient Overlay terang agar tulisan warna hitam sangat kentara dan tajam -->
+                <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent pointer-events-none"></div>
 
-            <!-- Mempelai Wanita: Ramlah -->
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-2xl relative space-y-4">
-              <!-- Bride Photo: photo_2026-11-26_09-04-35.jpg -->
-              <div class="relative mx-auto w-40 h-48 rounded-2xl overflow-hidden border-2 border-gold-400 shadow-xl group">
-                <img src="photo_2026-11-26_09-04-35.jpg" alt="Mempelai Wanita - Ramlah" 
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <!-- Identitas Mempelai Wanita (Warna hitam dengan bayangan agar kentara) -->
+                <div class="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-center space-y-1.5 z-10 pointer-events-none">
+                  <span class="inline-block px-3 py-0.5 rounded-full bg-stone-900 text-stone-50 border border-stone-800 text-[10px] uppercase tracking-widest font-bold shadow-sm">
+                    Mempelai Wanita
+                  </span>
+                  <h3 class="font-serif text-2xl sm:text-3xl font-bold text-stone-950 leading-tight" 
+                      style="color: #000000; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 12px rgba(255, 255, 255, 0.95);">
+                    Ramlah, S.Pd
+                  </h3>
+                  <p class="font-sans text-xs sm:text-sm text-stone-900 font-semibold leading-relaxed" 
+                     style="color: #111111; text-shadow: 0 0 8px rgba(255, 255, 255, 0.95);">
+                    Putri Ketiga Bapak Moh. Amin &amp; Ibu Hj. Hasmawati
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 class="font-serif text-2xl font-bold text-gold-gradient">
-                  Ramlah
-                </h3>
-                <span class="inline-block px-3 py-0.5 rounded-full bg-gold-400/10 text-gold-300 text-[10px] tracking-widest uppercase mt-1">
-                  Mempelai Wanita
-                </span>
-                <p class="font-sans text-xs text-stone-300 mt-2 leading-relaxed">
-                  Putri tercinta dari keluarga terhormat<br>
-                  <span class="font-semibold text-stone-200">Bapak & Ibu Kedua Mempelai</span>
-                </p>
-              </div>
-
-              <!-- Instagram Bride -->
-              <div class="pt-1">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
-                  class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-gold-400/40 text-xs text-gold-200 hover:text-white hover:bg-gold-500/30 transition-all">
-                  <i class="fa-brands fa-instagram text-sm text-pink-400"></i>
-                  <span>@ramlah_bride</span>
-                </a>
-              </div>
             </div>
 
           </div>
@@ -1599,6 +1592,62 @@
         currentHeroBg = 1;
       }
     }, 4500);
+
+
+    // ---------------------------------------------
+    // 5b. Slide 3: Synchronized Opposing Photo Slider
+    // Pria: groom1.jpg -> groom2.jpg -> groom3.jpg (Geser ke Kanan ➡️)
+    // Wanita: bride1.jpg -> bride3.jpg -> bride2.jpg (Geser ke Kiri / Berlawanan ⬅️)
+    // ---------------------------------------------
+    const groomSlides = document.querySelectorAll('.groom-slide');
+    const brideSlides = document.querySelectorAll('.bride-slide');
+    let coupleSlideIndex = 0;
+
+    function stepCoupleSlides() {
+      if (!groomSlides.length || !brideSlides.length) return;
+
+      const nextIndex = (coupleSlideIndex + 1) % groomSlides.length;
+
+      // 1. Groom: Geser ke Kanan ➡️
+      const curGroom = groomSlides[coupleSlideIndex];
+      const nextGroom = groomSlides[nextIndex];
+
+      curGroom.style.transition = 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.85s ease-in-out';
+      curGroom.style.transform = 'translateX(100%)';
+      curGroom.style.opacity = '0';
+      curGroom.style.zIndex = '1';
+
+      nextGroom.style.transition = 'none';
+      nextGroom.style.transform = 'translateX(-100%)';
+      nextGroom.style.opacity = '0';
+      nextGroom.style.zIndex = '2';
+      void nextGroom.offsetWidth; // Force reflow
+      nextGroom.style.transition = 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.85s ease-in-out';
+      nextGroom.style.transform = 'translateX(0)';
+      nextGroom.style.opacity = '1';
+
+      // 2. Bride: Geser Berlawanan / ke Kiri ⬅️
+      const curBride = brideSlides[coupleSlideIndex];
+      const nextBride = brideSlides[nextIndex];
+
+      curBride.style.transition = 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.85s ease-in-out';
+      curBride.style.transform = 'translateX(-100%)';
+      curBride.style.opacity = '0';
+      curBride.style.zIndex = '1';
+
+      nextBride.style.transition = 'none';
+      nextBride.style.transform = 'translateX(100%)';
+      nextBride.style.opacity = '0';
+      nextBride.style.zIndex = '2';
+      void nextBride.offsetWidth; // Force reflow
+      nextBride.style.transition = 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.85s ease-in-out';
+      nextBride.style.transform = 'translateX(0)';
+      nextBride.style.opacity = '1';
+
+      coupleSlideIndex = nextIndex;
+    }
+
+    setInterval(stepCoupleSlides, 3800);
 
 
     // ---------------------------------------------
