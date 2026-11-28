@@ -159,6 +159,43 @@
       animation: kenburns 14s infinite alternate ease-in-out;
     }
 
+    /* ========================================================
+       PANORAMA 3-FOTO BERJALAN KE KANAN SECARA PERLAHAN & BERKESINAMBUNGAN
+       ======================================================== */
+    @keyframes panoramaSlideRight {
+      0% {
+        transform: translate3d(-50%, 0, 0);
+      }
+      100% {
+        transform: translate3d(0%, 0, 0);
+      }
+    }
+
+    .panorama-track {
+      display: flex;
+      width: 600%;
+      height: 100%;
+      animation: panoramaSlideRight 36s linear infinite;
+      will-change: transform;
+    }
+
+    .panorama-panel {
+      width: 16.666667%;
+      height: 100%;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Kartu Agenda Oval Transparan Mewah (Tembus Pandang, namun Teks Tetap Sangat Tajam & Terbaca) */
+    .glass-oval-agenda {
+      background: rgba(14, 11, 9, 0.52);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid rgba(245, 206, 98, 0.9);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 0 25px rgba(245, 206, 98, 0.1);
+    }
+
     /* Rotating Disc */
     @keyframes spinDisc {
       100% { transform: rotate(360deg); }
@@ -654,11 +691,10 @@
           </div>
         </section>
 
-        <!-- Audio Element with Romantic Wedding Background Song (with synthesized Web Audio fallback) -->
+        <!-- Audio Element with Romantic Wedding Background Song (musik.mp3) -->
         <audio id="wedding-audio" loop preload="auto">
-          <!-- Royalty Free Wedding Instrumental Music Stream -->
-          <source src="https://actions.google.com/sounds/v1/ambiences/warm_morning_acoustic_guitar.ogg" type="audio/ogg">
-          <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-love-114408.mp3" type="audio/mp3">
+          <source src="musik.mp3" type="audio/mp3">
+          <source src="musik.mp3" type="audio/mpeg">
         </audio>
 
         <!-- Main Scrollable App Container -->
@@ -905,140 +941,99 @@
 
 
         <!-- ========================================== -->
-        <!-- SLIDE 4: Agenda Acara (Akad, Resepsi 1, Resepsi 2) -->
+        <!-- SLIDE 4A: Agenda Acara - Akad Nikah (Background 3 Foto 100% Solid & Jelas) -->
         <!-- ========================================== -->
-        <section id="slide-4" class="relative min-h-screen flex flex-col justify-center items-center text-center p-6 my-6">
-          <div class="relative z-10 w-full max-w-sm space-y-6">
+        <section id="slide-4" class="relative min-h-screen flex flex-col justify-center items-center text-center p-4 sm:p-6 my-6 overflow-hidden">
+          <!-- Background: 3 Foto Berjalan ke Kanan Secara Perlahan (100% Solid Asli Tanpa Overlay Gelap) -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="panorama-track absolute inset-0 flex h-full">
+              <!-- Set 1 -->
+              <div class="panorama-panel" style="background-image: url('cover1.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg5.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg4.jpg');"></div>
+              <!-- Set 2 (Seamless Infinite Wrap) -->
+              <div class="panorama-panel" style="background-image: url('cover1.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg5.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg4.jpg');"></div>
+            </div>
+          </div>
+
+          <div class="relative z-10 w-full max-w-sm space-y-4">
             
-            <!-- Section Header -->
-            <div class="space-y-1">
-              <span class="font-cormorant text-xs uppercase tracking-[0.3em] text-gold-300 font-semibold block">
+            <!-- Section Header (Efek Zoom-in Lembut Saat di-Scroll) -->
+            <div class="zoom-in-reveal space-y-1">
+              <span class="inline-block px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-gold-400/50 text-amber-300 font-cormorant text-xs uppercase tracking-[0.25em] font-bold shadow-md">
                 Rangkaian Momen Bersejarah
               </span>
-              <h2 class="font-serif text-3xl text-gold-gradient font-bold">
+              <h2 class="font-serif text-3xl sm:text-4xl text-amber-300 font-black tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                 Agenda Acara
               </h2>
               <div class="flex items-center justify-center gap-2 mt-1">
-                <span class="h-[1px] w-8 bg-gold-400/60"></span>
-                <i class="fa-solid fa-bell text-gold-400 text-xs"></i>
-                <span class="h-[1px] w-8 bg-gold-400/60"></span>
+                <span class="h-[1.5px] w-8 bg-amber-400 shadow"></span>
+                <i class="fa-solid fa-bell text-amber-300 text-xs drop-shadow"></i>
+                <span class="h-[1.5px] w-8 bg-amber-400 shadow"></span>
               </div>
             </div>
 
-            <!-- ACARA 1: AKAD NIKAH -->
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-xl space-y-3 relative overflow-hidden text-center">
-              <div class="absolute -top-6 -right-6 w-20 h-20 bg-gold-500/10 rounded-full blur-xl"></div>
+            <!-- BINGKAI OVAL ACARA: AKAD NIKAH (Tulisan Sangat Jelas & Warna Kontras Mewah) -->
+            <div class="zoom-in-reveal glass-oval-agenda relative w-full p-6 sm:p-7 text-center space-y-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.6)]" style="border-radius: 70px; transition-delay: 0.15s;">
+              <!-- Inner Decorative Oval Ring (Bingkai Ganda Emas) -->
+              <div class="absolute inset-2 sm:inset-2.5 border border-amber-300/60 pointer-events-none" style="border-radius: inherit;"></div>
               
-              <div class="inline-flex items-center justify-center w-12 h-12 rounded-full glass-card border border-gold-400/40 text-gold-300 mb-1">
-                <i class="fa-solid fa-ring text-lg"></i>
-              </div>
+              <!-- Ambient Glow Inside -->
+              <div class="absolute -top-6 -right-6 w-24 h-24 bg-amber-500/15 rounded-full blur-xl pointer-events-none"></div>
 
-              <h3 class="font-serif text-xl font-bold text-gold-200">
-                Akad Nikah
-              </h3>
+              <div class="relative z-10 space-y-3.5 py-1">
+                <!-- Icon Badge -->
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-300/80 text-amber-300 shadow-md">
+                  <i class="fa-solid fa-ring text-lg"></i>
+                </div>
 
-              <div class="space-y-1 text-xs text-stone-300">
-                <p class="font-medium text-stone-100 flex items-center justify-center gap-2">
-                  <i class="fa-regular fa-calendar text-gold-400"></i>
-                  <span>Sabtu, 12 September 2026</span>
-                </p>
-                <p class="flex items-center justify-center gap-2">
-                  <i class="fa-regular fa-clock text-gold-400"></i>
-                  <span>Pukul 09.00 WITA - Selesai</span>
-                </p>
-                <p class="flex items-center justify-center gap-2 pt-2 text-stone-200">
-                  <i class="fa-solid fa-location-dot text-rose-400"></i>
-                  <span>Kediaman Mempelai Wanita</span>
-                </p>
-                <p class="text-[11px] text-stone-400 italic">
-                  Kecamatan Somba Opu, Kabupaten Gowa / Kota Makassar
-                </p>
-              </div>
+                <!-- Agenda Title -->
+                <div>
+                  <span class="inline-block px-3.5 py-1 rounded-full bg-amber-500/30 text-amber-200 border border-amber-300/60 text-[11px] uppercase tracking-widest font-extrabold mb-1.5 shadow-sm">
+                    Rangkaian I
+                  </span>
+                  <h3 class="font-serif text-2xl sm:text-3xl font-black text-amber-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                    Akad Nikah
+                  </h3>
+                </div>
 
-              <div class="pt-3">
-                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" 
-                  class="w-full py-2.5 px-4 rounded-xl bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 text-gold-200 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95">
-                  <i class="fa-solid fa-map-location-dot"></i>
-                  <span>Petunjuk Arah Google Maps</span>
-                </a>
-              </div>
-            </div>
+                <div class="flex items-center justify-center gap-2">
+                  <span class="h-[1.5px] w-8 bg-amber-400/60"></span>
+                  <i class="fa-solid fa-diamond text-[9px] text-amber-300"></i>
+                  <span class="h-[1.5px] w-8 bg-amber-400/60"></span>
+                </div>
 
-            <!-- ACARA 2: RESEPSI 1 -->
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-xl space-y-3 relative overflow-hidden text-center">
-              <div class="absolute -top-6 -right-6 w-20 h-20 bg-rose-500/10 rounded-full blur-xl"></div>
-              
-              <div class="inline-flex items-center justify-center w-12 h-12 rounded-full glass-card border border-gold-400/40 text-gold-300 mb-1">
-                <i class="fa-solid fa-champagne-glasses text-lg"></i>
-              </div>
+                <!-- Date, Time, Venue (Warna Jelas & Tajam) -->
+                <div class="space-y-2 text-xs py-1">
+                  <p class="font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <i class="fa-regular fa-calendar-check text-amber-400 text-base"></i>
+                    <span>Jum'at, 11 Desember 2026</span>
+                  </p>
+                  <p class="text-amber-200 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <i class="fa-regular fa-clock text-amber-400"></i>
+                    <span>Pukul 13.30 WITA - SELESAI</span>
+                  </p>
+                  <div class="pt-1.5 space-y-1">
+                    <p class="flex items-center justify-center gap-2 text-amber-300 font-bold text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                      <i class="fa-solid fa-location-dot text-rose-400"></i>
+                      <span>Kediaman Mempelai Wanita</span>
+                    </p>
+                    <p class="text-xs text-white/95 font-medium leading-relaxed px-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                      Desa Bangkir, Dusun Leppangeng Persawahan
+                    </p>
+                  </div>
+                </div>
 
-              <h3 class="font-serif text-xl font-bold text-gold-200">
-                Resepsi 1
-              </h3>
-
-              <div class="space-y-1 text-xs text-stone-300">
-                <p class="font-medium text-stone-100 flex items-center justify-center gap-2">
-                  <i class="fa-regular fa-calendar text-gold-400"></i>
-                  <span>Sabtu, 12 September 2026</span>
-                </p>
-                <p class="flex items-center justify-center gap-2">
-                  <i class="fa-regular fa-clock text-gold-400"></i>
-                  <span>Pukul 11.00 - 17.00 WITA</span>
-                </p>
-                <p class="flex items-center justify-center gap-2 pt-2 text-stone-200">
-                  <i class="fa-solid fa-location-dot text-rose-400"></i>
-                  <span>Kediaman Mempelai Wanita / Ballroom</span>
-                </p>
-                <p class="text-[11px] text-stone-400 italic">
-                  Acara Syukuran & Ramah Tamah Bersama Tamu Undangan
-                </p>
-              </div>
-
-              <div class="pt-3">
-                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" 
-                  class="w-full py-2.5 px-4 rounded-xl bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 text-gold-200 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95">
-                  <i class="fa-solid fa-map-location-dot"></i>
-                  <span>Petunjuk Arah Google Maps</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- ACARA 3: RESEPSI 2 -->
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-xl space-y-3 relative overflow-hidden text-center">
-              <div class="absolute -top-6 -right-6 w-20 h-20 bg-amber-500/10 rounded-full blur-xl"></div>
-              
-              <div class="inline-flex items-center justify-center w-12 h-12 rounded-full glass-card border border-gold-400/40 text-gold-300 mb-1">
-                <i class="fa-solid fa-crown text-lg"></i>
-              </div>
-
-              <h3 class="font-serif text-xl font-bold text-gold-200">
-                Resepsi 2 (Undang Menantu)
-              </h3>
-
-              <div class="space-y-1 text-xs text-stone-300">
-                <p class="font-medium text-stone-100 flex items-center justify-center gap-2">
-                  <i class="fa-regular fa-calendar text-gold-400"></i>
-                  <span>Minggu, 13 September 2026</span>
-                </p>
-                <p class="flex items-center justify-center gap-2">
-                  <i class="fa-regular fa-clock text-gold-400"></i>
-                  <span>Pukul 10.00 - 16.00 WITA</span>
-                </p>
-                <p class="flex items-center justify-center gap-2 pt-2 text-stone-200">
-                  <i class="fa-solid fa-location-dot text-rose-400"></i>
-                  <span>Kediaman Mempelai Pria</span>
-                </p>
-                <p class="text-[11px] text-stone-400 italic">
-                  Acara Silaturahmi Keluarga Besar & Kerabat
-                </p>
-              </div>
-
-              <div class="pt-3">
-                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" 
-                  class="w-full py-2.5 px-4 rounded-xl bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 text-gold-200 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95">
-                  <i class="fa-solid fa-map-location-dot"></i>
-                  <span>Petunjuk Arah Google Maps</span>
-                </a>
+                <!-- Google Maps Button (Kontras Tegas & Jelas) -->
+                <div class="pt-2">
+                  <a href="https://maps.google.com/?q=Desa+Bangkir+Dusun+Leppangeng" target="_blank" rel="noopener noreferrer" 
+                    class="w-full py-2.5 px-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-extrabold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg border border-amber-300/80">
+                    <i class="fa-solid fa-map-location-dot text-stone-950"></i>
+                    <span>Petunjuk Arah Google Maps</span>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -1047,17 +1042,219 @@
 
 
         <!-- ========================================== -->
-        <!-- SLIDE 5: Galery Wedding -->
+        <!-- SLIDE 4B: Agenda Acara - Resepsi I (Background 3 Foto: cover2.jpg, bg9.jpg, bg10.jpg 100% Solid & Jelas) -->
         <!-- ========================================== -->
-        <section id="slide-5" class="relative min-h-screen flex flex-col justify-center items-center text-center p-6 my-6">
-          <div class="relative z-10 w-full max-w-sm space-y-6">
+        <section id="slide-4b" class="relative min-h-screen flex flex-col justify-center items-center text-center p-4 sm:p-6 my-6 overflow-hidden">
+          <!-- Background: cover2.jpg, bg9.jpg, bg10.jpg Berjalan ke Kanan Secara Perlahan (100% Solid Asli Tanpa Overlay Gelap) -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="panorama-track absolute inset-0 flex h-full">
+              <!-- Set 1 -->
+              <div class="panorama-panel" style="background-image: url('cover2.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg9.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg10.jpg');"></div>
+              <!-- Set 2 (Seamless Infinite Wrap) -->
+              <div class="panorama-panel" style="background-image: url('cover2.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg9.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg10.jpg');"></div>
+            </div>
+          </div>
+
+          <div class="relative z-10 w-full max-w-sm space-y-4">
+            
+            <!-- Section Header (Efek Zoom-in Lembut Saat di-Scroll) -->
+            <div class="zoom-in-reveal space-y-1">
+              <span class="inline-block px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-gold-400/50 text-amber-300 font-cormorant text-xs uppercase tracking-[0.25em] font-bold shadow-md">
+                Rangkaian Momen Bersejarah
+              </span>
+              <h2 class="font-serif text-3xl sm:text-4xl text-amber-300 font-black tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                Agenda Acara
+              </h2>
+              <div class="flex items-center justify-center gap-2 mt-1">
+                <span class="h-[1.5px] w-8 bg-amber-400 shadow"></span>
+                <i class="fa-solid fa-bell text-amber-300 text-xs drop-shadow"></i>
+                <span class="h-[1.5px] w-8 bg-amber-400 shadow"></span>
+              </div>
+            </div>
+
+            <!-- BINGKAI OVAL ACARA: RESEPSI I (Tulisan Sangat Jelas & Warna Kontras Mewah) -->
+            <div class="zoom-in-reveal glass-oval-agenda relative w-full p-6 sm:p-7 text-center space-y-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.6)]" style="border-radius: 70px; transition-delay: 0.15s;">
+              <!-- Inner Decorative Oval Ring (Bingkai Ganda Emas) -->
+              <div class="absolute inset-2 sm:inset-2.5 border border-amber-300/60 pointer-events-none" style="border-radius: inherit;"></div>
+              
+              <!-- Ambient Glow Inside -->
+              <div class="absolute -top-6 -right-6 w-24 h-24 bg-rose-500/15 rounded-full blur-xl pointer-events-none"></div>
+
+              <div class="relative z-10 space-y-3.5 py-1">
+                <!-- Icon Badge -->
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-300/80 text-amber-300 shadow-md">
+                  <i class="fa-solid fa-champagne-glasses text-lg"></i>
+                </div>
+
+                <!-- Agenda Title -->
+                <div>
+                  <span class="inline-block px-3.5 py-1 rounded-full bg-amber-500/30 text-amber-200 border border-amber-300/60 text-[11px] uppercase tracking-widest font-extrabold mb-1.5 shadow-sm">
+                    Rangkaian II
+                  </span>
+                  <h3 class="font-serif text-2xl sm:text-3xl font-black text-amber-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                    Resepsi I
+                  </h3>
+                </div>
+
+                <div class="flex items-center justify-center gap-2">
+                  <span class="h-[1.5px] w-8 bg-amber-400/60"></span>
+                  <i class="fa-solid fa-diamond text-[9px] text-amber-300"></i>
+                  <span class="h-[1.5px] w-8 bg-amber-400/60"></span>
+                </div>
+
+                <!-- Date, Time, Venue (Warna Jelas & Tajam) -->
+                <div class="space-y-2 text-xs py-1">
+                  <p class="font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <i class="fa-regular fa-calendar-check text-amber-400 text-base"></i>
+                    <span>Jum'at (Malam Sabtu), 11 Desember 2026</span>
+                  </p>
+                  <p class="text-amber-200 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <i class="fa-regular fa-clock text-amber-400"></i>
+                    <span>Pukul 19.30 WITA - SELESAI</span>
+                  </p>
+                  <div class="pt-1.5 space-y-1">
+                    <p class="flex items-center justify-center gap-2 text-amber-300 font-bold text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                      <i class="fa-solid fa-location-dot text-rose-400"></i>
+                      <span>Kediaman Mempelai Wanita</span>
+                    </p>
+                    <p class="text-xs text-white/95 font-medium leading-relaxed px-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                      Desa Bangkir, Dusun Leppangeng Persawahan
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Google Maps Button (Kontras Tegas & Jelas) -->
+                <div class="pt-2">
+                  <a href="https://maps.google.com/?q=Desa+Bangkir+Dusun+Leppangeng" target="_blank" rel="noopener noreferrer" 
+                    class="w-full py-2.5 px-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-extrabold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg border border-amber-300/80">
+                    <i class="fa-solid fa-map-location-dot text-stone-950"></i>
+                    <span>Petunjuk Arah Google Maps</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- SLIDE 4C: Agenda Acara - Resepsi II (Marola) (Background 3 Foto 100% Solid & Jelas) -->
+        <!-- ========================================== -->
+        <section id="slide-4c" class="relative min-h-screen flex flex-col justify-center items-center text-center p-4 sm:p-6 my-6 overflow-hidden">
+          <!-- Background: 3 Foto Berjalan ke Kanan Secara Perlahan (100% Solid Asli Tanpa Overlay Gelap) -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="panorama-track absolute inset-0 flex h-full">
+              <!-- Set 1 -->
+              <div class="panorama-panel" style="background-image: url('bg4.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('cover1.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg5.jpg');"></div>
+              <!-- Set 2 (Seamless Infinite Wrap) -->
+              <div class="panorama-panel" style="background-image: url('bg4.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('cover1.jpg');"></div>
+              <div class="panorama-panel" style="background-image: url('bg5.jpg');"></div>
+            </div>
+          </div>
+
+          <div class="relative z-10 w-full max-w-sm space-y-4">
+            
+            <!-- Section Header (Efek Zoom-in Lembut Saat di-Scroll) -->
+            <div class="zoom-in-reveal space-y-1">
+              <span class="inline-block px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-gold-400/50 text-amber-300 font-cormorant text-xs uppercase tracking-[0.25em] font-bold shadow-md">
+                Rangkaian Momen Bersejarah
+              </span>
+              <h2 class="font-serif text-3xl sm:text-4xl text-amber-300 font-black tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                Agenda Acara
+              </h2>
+              <div class="flex items-center justify-center gap-2 mt-1">
+                <span class="h-[1.5px] w-8 bg-amber-400 shadow"></span>
+                <i class="fa-solid fa-bell text-amber-300 text-xs drop-shadow"></i>
+                <span class="h-[1.5px] w-8 bg-amber-400 shadow"></span>
+              </div>
+            </div>
+
+            <!-- BINGKAI OVAL ACARA: RESEPSI II (MAROLA) (Tulisan Sangat Jelas & Warna Kontras Mewah) -->
+            <div class="zoom-in-reveal glass-oval-agenda relative w-full p-6 sm:p-7 text-center space-y-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.6)]" style="border-radius: 70px; transition-delay: 0.15s;">
+              <!-- Inner Decorative Oval Ring (Bingkai Ganda Emas) -->
+              <div class="absolute inset-2 sm:inset-2.5 border border-amber-300/60 pointer-events-none" style="border-radius: inherit;"></div>
+              
+              <!-- Ambient Glow Inside -->
+              <div class="absolute -top-6 -right-6 w-24 h-24 bg-amber-500/15 rounded-full blur-xl pointer-events-none"></div>
+
+              <div class="relative z-10 space-y-3.5 py-1">
+                <!-- Icon Badge -->
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-300/80 text-amber-300 shadow-md">
+                  <i class="fa-solid fa-crown text-lg"></i>
+                </div>
+
+                <!-- Agenda Title -->
+                <div>
+                  <span class="inline-block px-3.5 py-1 rounded-full bg-amber-500/30 text-amber-200 border border-amber-300/60 text-[11px] uppercase tracking-widest font-extrabold mb-1.5 shadow-sm">
+                    Rangkaian III
+                  </span>
+                  <h3 class="font-serif text-2xl sm:text-3xl font-black text-amber-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                    Resepsi II (Marola)
+                  </h3>
+                </div>
+
+                <div class="flex items-center justify-center gap-2">
+                  <span class="h-[1.5px] w-8 bg-amber-400/60"></span>
+                  <i class="fa-solid fa-diamond text-[9px] text-amber-300"></i>
+                  <span class="h-[1.5px] w-8 bg-amber-400/60"></span>
+                </div>
+
+                <!-- Date, Time, Venue (Warna Jelas & Tajam) -->
+                <div class="space-y-2 text-xs py-1">
+                  <p class="font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <i class="fa-regular fa-calendar-check text-amber-400 text-base"></i>
+                    <span>Sabtu (Malam Minggu), 12 Desember 2026</span>
+                  </p>
+                  <p class="text-amber-200 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <i class="fa-regular fa-clock text-amber-400"></i>
+                    <span>Pukul 19.30 WITA - SELESAI</span>
+                  </p>
+                  <div class="pt-1.5 space-y-1">
+                    <p class="flex items-center justify-center gap-2 text-amber-300 font-bold text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                      <i class="fa-solid fa-location-dot text-rose-400"></i>
+                      <span>Kediaman Mempelai Pria</span>
+                    </p>
+                    <p class="text-xs text-white/95 font-medium leading-relaxed px-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                      Jl. Nelayan Ogoamas 1
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Google Maps Button (Kontras Tegas & Jelas) -->
+                <div class="pt-2">
+                  <a href="https://maps.google.com/?q=Jl.+Nelayan+Ogoamas+1" target="_blank" rel="noopener noreferrer" 
+                    class="w-full py-2.5 px-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-extrabold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg border border-amber-300/80">
+                    <i class="fa-solid fa-map-location-dot text-stone-950"></i>
+                    <span>Petunjuk Arah Google Maps</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- SLIDE 5: Galery Wedding (Dikelompokkan Berdasarkan Kostum) -->
+        <!-- ========================================== -->
+        <section id="slide-5" class="relative min-h-screen flex flex-col justify-center items-center text-center p-4 sm:p-6 my-6">
+          <div class="relative z-10 w-full max-w-sm space-y-5">
             
             <!-- Section Header -->
-            <div class="space-y-1">
+            <div class="zoom-in-reveal space-y-1">
               <span class="font-cormorant text-xs uppercase tracking-[0.3em] text-gold-300 font-semibold block">
                 Momen Indah Kami
               </span>
-              <h2 class="font-serif text-3xl text-gold-gradient font-bold">
+              <h2 class="font-serif text-3xl sm:text-4xl text-gold-gradient font-bold">
                 Galeri Wedding
               </h2>
               <div class="flex items-center justify-center gap-2 mt-1">
@@ -1070,110 +1267,241 @@
               </p>
             </div>
 
-            <!-- Photo Grid Gallery (Masonry Style) -->
-            <div class="grid grid-cols-2 gap-3" id="wedding-gallery">
-              
-              <!-- Photo 1 (Featured Large) -->
-              <div class="col-span-2 rounded-2xl overflow-hidden border border-gold-400/30 shadow-xl cursor-pointer group relative aspect-[16/10]" onclick="openLightbox('bg4.jpg')">
-                <img src="bg4.jpg" alt="Prewedding Beach Sunset" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-xl drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 2 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('cover1.jpg')">
-                <img src="cover1.jpg" alt="Romantic Beach Flower" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 3 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('cover2.jpg')">
-                <img src="cover2.jpg" alt="Bugis Traditional Attire" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 4 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg1.jpg')">
-                <img src="bg1.jpg" alt="Night Lantern Traditional" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 5 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg2.jpg')">
-                <img src="bg2.jpg" alt="Golden Umbrella Tradition" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 6 (Featured Wide) -->
-              <div class="col-span-2 rounded-2xl overflow-hidden border border-gold-400/30 shadow-xl cursor-pointer group relative aspect-[16/10]" onclick="openLightbox('bg5.jpg')">
-                <img src="bg5.jpg" alt="Walking In White Prewedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-xl drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 7 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg6.jpg')">
-                <img src="bg6.jpg" alt="Songket White Attire" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 8 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg7.jpg')">
-                <img src="bg7.jpg" alt="Sweet Embrace" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 9 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-04-50.jpg')">
-                <img src="photo_2026-11-26_09-04-50.jpg" alt="Sweet Gaze Bugis Dress" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
-              <!-- Photo 10 -->
-              <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('kata2.jpg')">
-                <img src="kata2.jpg" alt="Beach Lantern Twilight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
-                </div>
-              </div>
-
+            <!-- Filter Tabs Kategori Kostum -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+              <button type="button" onclick="filterGallery('all', this)" 
+                class="gallery-tab-btn px-3.5 py-1.5 rounded-full text-[11px] border bg-amber-400 text-stone-950 font-black border-amber-300 shadow-md transition-all active:scale-95">
+                Semua
+              </button>
+              <button type="button" onclick="filterGallery('bugis', this)" 
+                class="gallery-tab-btn px-3.5 py-1.5 rounded-full text-[11px] border bg-stone-900/80 text-stone-300 border-stone-700/60 hover:text-amber-200 transition-all active:scale-95">
+                Adat Bugis
+              </button>
+              <button type="button" onclick="filterGallery('songket', this)" 
+                class="gallery-tab-btn px-3.5 py-1.5 rounded-full text-[11px] border bg-stone-900/80 text-stone-300 border-stone-700/60 hover:text-amber-200 transition-all active:scale-95">
+                Songket Modern
+              </button>
+              <button type="button" onclick="filterGallery('casual', this)" 
+                class="gallery-tab-btn px-3.5 py-1.5 rounded-full text-[11px] border bg-stone-900/80 text-stone-300 border-stone-700/60 hover:text-amber-200 transition-all active:scale-95">
+                Kasual Pantai
+              </button>
             </div>
 
-            <p class="text-[11px] text-stone-400 italic">
-              *Ketuk foto untuk memperbesar
+            <!-- KELOMPOK 1: ADAT BUGIS (UNGU & KEEMASAN) -->
+            <div class="gallery-costume-group space-y-3 transition-all duration-300" data-category="bugis">
+              <div class="flex items-center justify-between px-1 pt-2 border-b border-amber-400/30 pb-1.5">
+                <div class="text-left">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-purple-900/50 text-amber-300 border border-purple-400/40 text-[10px] uppercase font-bold tracking-wider mb-0.5">
+                    Tema I
+                  </span>
+                  <h3 class="font-serif text-base sm:text-lg font-bold text-amber-200">
+                    Adat Tradisional Bugis
+                  </h3>
+                </div>
+                <span class="text-[10px] text-stone-400 italic">Nuansa Ungu & Emas</span>
+              </div>
+
+              <!-- Grid Foto Adat Bugis -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <!-- Featured Wide Foto Adat -->
+                <div class="col-span-2 rounded-2xl overflow-hidden border border-gold-400/40 shadow-xl cursor-pointer group relative aspect-[16/10]" onclick="openLightbox('bg10.jpg')">
+                  <img src="bg10.jpg" alt="Busana Adat Bugis di Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-xl drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 2 & 3 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('cover2.jpg')">
+                  <img src="cover2.jpg" alt="Adat Bugis Lentera Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg9.jpg')">
+                  <img src="bg9.jpg" alt="Adat Bugis Bergandengan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 4 & 5 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg1.jpg')">
+                  <img src="bg1.jpg" alt="Adat Bugis Lentera Malam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg2.jpg')">
+                  <img src="bg2.jpg" alt="Adat Bugis Payung Emas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 6 & 7 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-05-02.jpg')">
+                  <img src="photo_2026-11-26_09-05-02.jpg" alt="Adat Bugis Senja Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-04-53.jpg')">
+                  <img src="photo_2026-11-26_09-04-53.jpg" alt="Adat Bugis Bawah Bulan Purnama" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KELOMPOK 2: BAJU KURUNG & SONGKET TENUN (PUTIH & HITAM-PERAK) -->
+            <div class="gallery-costume-group space-y-3 transition-all duration-300" data-category="songket">
+              <div class="flex items-center justify-between px-1 pt-3 border-b border-amber-400/30 pb-1.5">
+                <div class="text-left">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-stone-800/80 text-amber-300 border border-gold-400/40 text-[10px] uppercase font-bold tracking-wider mb-0.5">
+                    Tema II
+                  </span>
+                  <h3 class="font-serif text-base sm:text-lg font-bold text-amber-200">
+                    Baju Kurung & Songket
+                  </h3>
+                </div>
+                <span class="text-[10px] text-stone-400 italic">Pelaminan Putih & Perak</span>
+              </div>
+
+              <!-- Grid Foto Songket -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <!-- Featured Wide Foto Pelaminan -->
+                <div class="col-span-2 rounded-2xl overflow-hidden border border-gold-400/40 shadow-xl cursor-pointer group relative aspect-[16/10]" onclick="openLightbox('bg6.jpg')">
+                  <img src="bg6.jpg" alt="Baju Kurung Songket Pelaminan Bunga" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-xl drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 2 & 3 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-05-38.jpg')">
+                  <img src="photo_2026-11-26_09-05-38.jpg" alt="Penyerahan Mahar Seserahan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg7.jpg')">
+                  <img src="bg7.jpg" alt="Pose Mesra Pelaminan Bunga" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 4 & 5 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-04-43.jpg')">
+                  <img src="photo_2026-11-26_09-04-43.jpg" alt="Pose Anggun Baju Songket" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-04-46.jpg')">
+                  <img src="photo_2026-11-26_09-04-46.jpg" alt="Senyum Bahagia Mempelai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KELOMPOK 3: KASUAL SERBA PUTIH (PANTAI & SUNSET ROMANTIS) -->
+            <div class="gallery-costume-group space-y-3 transition-all duration-300" data-category="casual">
+              <div class="flex items-center justify-between px-1 pt-3 border-b border-amber-400/30 pb-1.5">
+                <div class="text-left">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-blue-900/50 text-amber-300 border border-cyan-400/40 text-[10px] uppercase font-bold tracking-wider mb-0.5">
+                    Tema III
+                  </span>
+                  <h3 class="font-serif text-base sm:text-lg font-bold text-amber-200">
+                    Kasual Pantai Serba Putih
+                  </h3>
+                </div>
+                <span class="text-[10px] text-stone-400 italic">Sunset & Lentera Senja</span>
+              </div>
+
+              <!-- Grid Foto Kasual Pantai -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <!-- Featured Wide Sunset Beach -->
+                <div class="col-span-2 rounded-2xl overflow-hidden border border-gold-400/40 shadow-xl cursor-pointer group relative aspect-[16/10]" onclick="openLightbox('bg4.jpg')">
+                  <img src="bg4.jpg" alt="Kasual Putih Sunset Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-xl drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 2 & 3 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('cover1.jpg')">
+                  <img src="cover1.jpg" alt="Genggaman Bunga Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('bg5.jpg')">
+                  <img src="bg5.jpg" alt="Jembatan Kayu Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 4 & 5 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('kata2.jpg')">
+                  <img src="kata2.jpg" alt="Lentera Malam Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-05-20.jpg')">
+                  <img src="photo_2026-11-26_09-05-20.jpg" alt="Siluet Romantis Sunset Laut" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+
+                <!-- Foto 6 & 7 -->
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-06-08.jpg')">
+                  <img src="photo_2026-11-26_09-06-08.jpg" alt="Lentera Menerangi Mempelai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-gold-400/30 shadow-lg cursor-pointer group relative aspect-[3/4]" onclick="openLightbox('photo_2026-11-26_09-06-04.jpg')">
+                  <img src="photo_2026-11-26_09-06-04.jpg" alt="Duduk Bersama di Pasir Pantai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <i class="fa-solid fa-expand text-white text-lg drop-shadow"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-stone-400 italic pt-1">
+              *Ketuk foto untuk memperbesar ukuran penuh
             </p>
           </div>
         </section>
 
 
         <!-- ========================================== -->
-        <!-- SLIDE 6: Wedding Gift -->
+        <!-- SLIDE 6: Wedding Gift (Nomor Rekening BRI) -->
         <!-- ========================================== -->
-        <section id="slide-6" class="relative min-h-screen flex flex-col justify-center items-center text-center p-6 my-6">
+        <section id="slide-6" class="relative min-h-screen flex flex-col justify-center items-center text-center p-4 sm:p-6 my-6 overflow-hidden">
+          <!-- Background: cover3.jpg (Cincin & Bunga Pernikahan) -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="absolute inset-0 bg-cover bg-center ken-burns" style="background-image: url('cover3.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-stone-950/65 to-stone-950/85 backdrop-blur-[1px]"></div>
+          </div>
+
           <div class="relative z-10 w-full max-w-sm space-y-6">
             
             <!-- Section Header -->
-            <div class="space-y-1">
+            <div class="zoom-in-reveal space-y-1">
               <span class="font-cormorant text-xs uppercase tracking-[0.3em] text-gold-300 font-semibold block">
                 Tanda Kasih
               </span>
-              <h2 class="font-serif text-3xl text-gold-gradient font-bold">
+              <h2 class="font-serif text-3xl sm:text-4xl text-gold-gradient font-bold">
                 Wedding Gift
               </h2>
               <div class="flex items-center justify-center gap-2 mt-1">
@@ -1186,58 +1514,78 @@
               </p>
             </div>
 
-            <!-- Rekening 1: Bank BCA -->
-            <div class="glass-dark rounded-3xl p-5 border border-gold-400/30 shadow-xl space-y-3 relative overflow-hidden">
-              <div class="flex items-center justify-between">
-                <span class="font-serif font-bold text-lg text-blue-400 tracking-wider">BCA</span>
-                <span class="text-[10px] uppercase tracking-widest text-gold-300 bg-gold-500/10 px-2 py-0.5 rounded-full border border-gold-400/30">Transfer Bank</span>
-              </div>
+            <!-- Kartu Rekening Resmi: BANK BRI (ARDIANSYAH) -->
+            <div class="zoom-in-reveal relative rounded-3xl p-6 sm:p-7 border-2 border-amber-400/70 shadow-[0_15px_40px_rgba(0,0,0,0.7)] text-left overflow-hidden bg-gradient-to-br from-[#021f45] via-[#083061] to-[#01142b]" style="transition-delay: 0.15s;">
+              <!-- Background Ambient Ornaments -->
+              <div class="absolute -top-10 -right-10 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
+              <div class="absolute -bottom-10 -left-10 w-36 h-36 bg-amber-500/15 rounded-full blur-2xl pointer-events-none"></div>
               
-              <div class="text-left space-y-1">
-                <p class="text-[11px] text-stone-400">Nomor Rekening:</p>
-                <p id="acc-bca" class="font-mono text-xl font-bold tracking-widest text-gold-200">7920182931</p>
-                <p class="text-xs text-stone-300">a.n. <strong class="text-stone-100">ARDI</strong></p>
+              <!-- Card Top Header: BRI Logo & EMV Chip -->
+              <div class="relative z-10 flex items-center justify-between pb-4 border-b border-blue-400/30">
+                <div class="space-y-0.5">
+                  <div class="flex items-center gap-2">
+                    <span class="font-sans font-black text-2xl sm:text-3xl tracking-wider text-blue-400 drop-shadow">BRI</span>
+                    <span class="inline-block px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/40 text-[9px] font-bold uppercase tracking-widest">
+                      Bank Transfer
+                    </span>
+                  </div>
+                  <p class="text-[9px] uppercase tracking-widest text-blue-200/80 font-semibold">
+                    BANK RAKYAT INDONESIA
+                  </p>
+                </div>
+
+                <!-- EMV Smart Chip Icon -->
+                <div class="flex items-center gap-2">
+                  <div class="w-10 h-7 rounded-md bg-gradient-to-tr from-amber-400 via-yellow-200 to-amber-500 border border-amber-600/60 shadow flex items-center justify-center">
+                    <i class="fa-solid fa-microchip text-amber-900 text-xs"></i>
+                  </div>
+                  <i class="fa-solid fa-wifi text-amber-300 text-xs rotate-90"></i>
+                </div>
               </div>
 
-              <button onclick="copyToClipboard('7920182931', 'Nomor Rekening BCA')" 
-                class="w-full py-2.5 px-4 rounded-xl bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 text-gold-200 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95">
-                <i class="fa-regular fa-copy"></i>
-                <span>Salin Nomor Rekening</span>
-              </button>
-            </div>
+              <!-- Card Body: Account Number & Holder Name -->
+              <div class="relative z-10 py-4 space-y-3">
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-blue-200/90 font-semibold block mb-1">
+                    Nomor Rekening:
+                  </span>
+                  <p id="acc-bri" class="font-mono text-2xl sm:text-[27px] font-black tracking-widest text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-all">
+                    750801009521539
+                  </p>
+                </div>
 
-            <!-- Rekening 2: Bank BRI / Mandiri -->
-            <div class="glass-dark rounded-3xl p-5 border border-gold-400/30 shadow-xl space-y-3 relative overflow-hidden">
-              <div class="flex items-center justify-between">
-                <span class="font-serif font-bold text-lg text-blue-300 tracking-wider">BRI</span>
-                <span class="text-[10px] uppercase tracking-widest text-gold-300 bg-gold-500/10 px-2 py-0.5 rounded-full border border-gold-400/30">Transfer Bank</span>
-              </div>
-              
-              <div class="text-left space-y-1">
-                <p class="text-[11px] text-stone-400">Nomor Rekening:</p>
-                <p id="acc-bri" class="font-mono text-xl font-bold tracking-widest text-gold-200">508101029482531</p>
-                <p class="text-xs text-stone-300">a.n. <strong class="text-stone-100">RAMLAH</strong></p>
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-blue-200/90 font-semibold block mb-0.5">
+                    Atas Nama:
+                  </span>
+                  <p class="font-serif text-lg sm:text-xl font-black text-amber-300 tracking-wider uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    ARDIANSYAH
+                  </p>
+                </div>
               </div>
 
-              <button onclick="copyToClipboard('508101029482531', 'Nomor Rekening BRI')" 
-                class="w-full py-2.5 px-4 rounded-xl bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 text-gold-200 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95">
-                <i class="fa-regular fa-copy"></i>
-                <span>Salin Nomor Rekening</span>
-              </button>
+              <!-- Copy Account Button -->
+              <div class="relative z-10 pt-1">
+                <button onclick="copyToClipboard('750801009521539', 'Nomor Rekening BRI')" 
+                  class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-black tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg border border-amber-300/80">
+                  <i class="fa-regular fa-copy text-sm"></i>
+                  <span>SALIN NOMOR REKENING</span>
+                </button>
+              </div>
             </div>
 
             <!-- Kirim Kado Fisik Box -->
-            <div class="glass-dark rounded-3xl p-5 border border-gold-400/30 shadow-xl space-y-3 text-left">
+            <div class="zoom-in-reveal glass-dark rounded-3xl p-5 border border-gold-400/30 shadow-xl space-y-3 text-left" style="transition-delay: 0.25s;">
               <div class="flex items-center gap-2 text-gold-300">
                 <i class="fa-solid fa-box-open text-base"></i>
                 <h4 class="font-serif font-bold text-sm text-stone-100">Kirim Kado Fisik</h4>
               </div>
               
               <p class="text-xs text-stone-300 leading-relaxed" id="physical-address">
-                Alamat: Jl. Poros Malino Km. 8, Somba Opu, Kabupaten Gowa, Sulawesi Selatan (Penerima: Ardi & Ramlah / 0812-3456-7890)
+                Alamat: Jl. Nelayan Ogoamas 1 (Penerima: Ardiansyah & Ramlah)
               </p>
 
-              <button onclick="copyToClipboard('Jl. Poros Malino Km. 8, Somba Opu, Kabupaten Gowa, Sulawesi Selatan (Penerima: Ardi & Ramlah / 0812-3456-7890)', 'Alamat Kirim Kado')" 
+              <button onclick="copyToClipboard('Jl. Nelayan Ogoamas 1 (Penerima: Ardiansyah & Ramlah)', 'Alamat Kirim Kado')" 
                 class="w-full py-2.5 px-4 rounded-xl bg-stone-800/80 hover:bg-stone-700/80 border border-stone-600/50 text-stone-200 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95">
                 <i class="fa-regular fa-copy"></i>
                 <span>Salin Alamat Penerima</span>
@@ -1372,61 +1720,55 @@
         <!-- ========================================== -->
         <!-- SLIDE 8: Ucapan Terima Kasih -->
         <!-- ========================================== -->
-        <section id="slide-8" class="relative min-h-screen flex flex-col justify-between items-center text-center p-6 my-6 overflow-hidden">
+        <section id="slide-8" class="relative min-h-screen flex flex-col justify-end items-center text-center p-4 sm:p-6 my-6 overflow-hidden">
           
-          <!-- Background with soft romantic glow -->
-          <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-cover bg-center opacity-30 ken-burns" style="background-image: url('cover1.jpg');"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-950 via-stone-950/90 to-black"></div>
+          <!-- Background: photo_2026-11-26_09-06-04.jpg (Foto Dinaikkan ke Atas & Sangat Jernih) -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="absolute inset-x-0 -top-28 sm:-top-36 h-[140%] sm:h-[145%] bg-cover bg-center ken-burns" 
+                 style="background-image: url('photo_2026-11-26_09-06-04.jpg'); background-position: center 25%;"></div>
+            <!-- Overlay tipis lembut agar background foto terlihat 100% jelas dari atas sampai bawah -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/55 pointer-events-none"></div>
           </div>
 
           <!-- Top Ornament -->
-          <div class="relative z-10 pt-10">
-            <i class="fa-solid fa-heart text-gold-400 text-lg animate-pulse"></i>
-            <div class="flex items-center justify-center gap-2 mt-2">
-              <span class="h-[1px] w-12 bg-gold-400/60"></span>
-              <span class="font-cormorant text-xs uppercase tracking-[0.3em] text-gold-300">Ungkapan Syukur</span>
-              <span class="h-[1px] w-12 bg-gold-400/60"></span>
+          <div class="relative z-10 pt-4 sm:pt-6 w-full flex flex-col items-center">
+            <div class="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-gold-400/40 text-gold-300 text-xs shadow-md">
+              <i class="fa-solid fa-heart text-gold-400 text-xs animate-pulse"></i>
+              <span class="font-cormorant text-[11px] uppercase tracking-[0.25em] font-semibold">Ungkapan Syukur</span>
             </div>
           </div>
 
-          <!-- Center: Heartfelt Appreciation Message -->
-          <div class="relative z-10 my-auto w-full max-w-sm space-y-6">
-            <h2 class="font-serif text-3xl md:text-4xl text-gold-gradient font-bold">
+          <!-- Center/Bottom: Heartfelt Appreciation Message (Kotak Transparan Sehingga Background Tampak Jelas) -->
+          <div class="relative z-10 mt-auto mb-3 w-full max-w-sm space-y-4">
+            <h2 class="font-serif text-3xl md:text-4xl text-amber-300 font-black tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
               Terima Kasih
             </h2>
 
-            <div class="glass-dark rounded-3xl p-6 border border-gold-400/30 shadow-2xl space-y-4">
-              <p class="font-sans text-xs text-stone-200 leading-relaxed">
+            <!-- Kotak Transparan (Sheer Crystal Glass) -->
+            <div class="rounded-3xl p-5 sm:p-6 border border-amber-300/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] space-y-3.5 bg-black/20 backdrop-blur-[3px]">
+              <p class="font-sans text-xs text-white leading-relaxed font-medium" style="text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.8);">
                 Merupakan suatu kehormatan dan kebahagiaan yang tak terhingga bagi kami sekeluarga, apabila Bapak/Ibu/Saudara/i berkenan hadir serta memberikan doa restu kepada kami.
               </p>
-              <p class="font-sans text-xs text-stone-300 leading-relaxed italic">
+              <p class="font-sans text-xs text-amber-200 leading-relaxed italic font-medium" style="text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.8);">
                 Atas kehadiran dan doa restu yang tulus, kami haturkan terima kasih yang sebesar-besarnya.
               </p>
               
-              <div class="pt-4 border-t border-gold-400/30 space-y-1">
-                <p class="font-sans text-xs text-stone-400">Kami yang berbahagia,</p>
-                <h3 class="font-brittany text-3xl sm:text-4xl text-gold-300 py-1 whitespace-nowrap">
+              <div class="pt-3 border-t border-amber-400/40 space-y-1">
+                <p class="font-sans text-xs text-stone-200 font-medium" style="text-shadow: 0 1px 3px rgba(0,0,0,0.95);">Kami yang berbahagia,</p>
+                <h3 class="font-brittany text-3xl sm:text-4xl text-amber-300 py-1 whitespace-nowrap" style="text-shadow: 0 2px 5px rgba(0,0,0,0.95);">
                   Ardi & Ramlah
                 </h3>
-                <p class="font-sans text-[11px] text-stone-300">
+                <p class="font-sans text-[11px] text-stone-200 font-medium" style="text-shadow: 0 1px 3px rgba(0,0,0,0.95);">
                   Beserta Segenap Keluarga Besar Kedua Mempelai
                 </p>
               </div>
             </div>
 
-            <!-- Share Button to WhatsApp -->
-            <button onclick="shareInvitation()" 
-              class="w-full py-3 px-6 rounded-full bg-emerald-600/90 hover:bg-emerald-500 text-white font-sans font-medium text-xs tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/40 active:scale-95 transition-all">
-              <i class="fa-brands fa-whatsapp text-base"></i>
-              <span>Bagikan Undangan via WhatsApp</span>
-            </button>
-          </div>
-
-          <!-- Footer Credit -->
-          <div class="relative z-10 pb-16 text-[10px] text-stone-500 tracking-widest space-y-1">
-            <p>© 2026 The Wedding of Ardi & Ramlah</p>
-            <p>Made with Love &bull; All Rights Reserved</p>
+            <!-- Footer Credit -->
+            <div class="pb-12 text-[10px] text-stone-300 tracking-widest space-y-0.5" style="text-shadow: 0 1px 2px rgba(0,0,0,0.95);">
+              <p>© 2026 The Wedding of Ardi & Ramlah</p>
+              <p>Made with Love &bull; All Rights Reserved</p>
+            </div>
           </div>
 
         </section>
@@ -1701,7 +2043,7 @@
 
     function startMusic() {
       if (!weddingAudio) return;
-      weddingAudio.volume = 0.6;
+      weddingAudio.volume = 0.8;
       try {
         const playPromise = weddingAudio.play();
         if (playPromise !== undefined) {
@@ -1765,8 +2107,15 @@
       btnToggleMusic.addEventListener('click', toggleMusic);
     }
 
+    let hasOpenedInvitation = false;
     function openInvitationAction() {
-      // 1. Smoothly fade out Cover Kedua
+      if (hasOpenedInvitation) return;
+      hasOpenedInvitation = true;
+
+      // 1. Start romantic music immediately on user tap
+      startMusic();
+
+      // 2. Smoothly fade out Cover Kedua
       const cover = document.getElementById('cover-kedua');
       if (cover) {
         cover.style.transform = 'translateY(-100%)';
@@ -1775,9 +2124,6 @@
           cover.style.display = 'none';
         }, 1000);
       }
-
-      // 2. Start romantic music
-      startMusic();
 
       // 3. Scroll smoothly to Slide 1
       const targetSlide = document.getElementById('slide-1');
@@ -1789,6 +2135,11 @@
 
     if (btnOpenInvitation) {
       btnOpenInvitation.addEventListener('click', openInvitationAction);
+    }
+
+    // Mengizinkan pengguna mentap di area cover mana saja untuk langsung memutar musik & membuka undangan
+    if (coverKedua) {
+      coverKedua.addEventListener('click', openInvitationAction);
     }
 
 
@@ -1876,6 +2227,31 @@
         closeLightbox();
       }
     });
+
+    // ---------------------------------------------
+    // 9b. Gallery Costume Category Filter
+    // ---------------------------------------------
+    function filterGallery(category, btnElement) {
+      // 1. Reset & update active button style
+      document.querySelectorAll('.gallery-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-400', 'text-stone-950', 'font-black', 'border-amber-300', 'shadow-md');
+        btn.classList.add('bg-stone-900/80', 'text-stone-300', 'border-stone-700/60');
+      });
+      if (btnElement) {
+        btnElement.classList.remove('bg-stone-900/80', 'text-stone-300', 'border-stone-700/60');
+        btnElement.classList.add('bg-amber-400', 'text-stone-950', 'font-black', 'border-amber-300', 'shadow-md');
+      }
+
+      // 2. Filter costume groups
+      const groups = document.querySelectorAll('.gallery-costume-group');
+      groups.forEach(group => {
+        if (category === 'all' || group.getAttribute('data-category') === category) {
+          group.classList.remove('hidden');
+        } else {
+          group.classList.add('hidden');
+        }
+      });
+    }
 
 
     // ---------------------------------------------
